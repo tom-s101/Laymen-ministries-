@@ -1,0 +1,6 @@
+# Optional extra protection: uncomment to also require an HTTP password.
+# AuthType Basic
+# AuthName "Volunteer Admin"
+# AuthUserFile /path/outside/webroot/.htpasswd
+# Require valid-user
+Options -Indexes
