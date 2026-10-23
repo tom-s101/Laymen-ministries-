@@ -150,7 +150,7 @@ function status_class(string $s): string
 <body class="apply-page">
   <header class="site-header">
     <div class="container">
-      <a class="brand" href="<?= h($self) ?>"><span class="brand-mark" aria-hidden="true">L</span>VOLUNTEER ADMIN</a>
+      <a class="brand" href="<?= h($self) ?>"><img class="brand-logo" src="../assets/img/lmn-logo.png" alt="Laymen Ministries" onerror="this.hidden=true"> Volunteer Admin</a>
       <?php if ($authed): ?><a href="?logout=1" style="font-size:13px;">Sign out</a><?php endif; ?>
     </div>
   </header>
