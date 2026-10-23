@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LAYMEN MINISTRIES - VOLUNTEER APPLICATION</title>
+  <meta name="description" content="Apply online to serve as a student or long-term missionary with Laymen Ministries.">
+  <meta name="theme-color" content="#1f3a5f">
+  <link rel="stylesheet" href="assets/css/volunteer.css">
+</head>
+<body class="apply-page">
+  <a class="skip-link" href="#main">Skip to form</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html" aria-label="Laymen Ministries home">
+        <span class="brand-mark" aria-hidden="true">L</span>
+        LAYMEN MINISTRIES
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 6h16M2 14h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="aboutus.html">About Us</a></li>
+          <li><a href="missions.html">Missions</a></li>
+          <li><a href="volunteer.html" aria-current="page">Volunteer</a></li>
+          <li><a href="videoroom.html">Video Room</a></li>
+          <li><a href="catalog/index.php">Store</a></li>
+          <li><a href="contactus.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <div class="apply-header">
+      <a href="volunteer.html" class="muted" style="font-size:14px;">‹ Back to Volunteer</a>
+      <h1>Volunteer Application</h1>
+      <p>Takes about 20 minutes. Your answers save on this device as you go.</p>
+    </div>
+
+    <div class="apply-layout">
+      <div>
+        <ol class="stepper" id="stepper" aria-label="Application progress"></ol>
+
+        <form class="form-card" id="apply-form" novalidate>
+          <div class="form-alert" id="form-alert" role="alert"></div>
+          <!-- Honeypot for spam bots -->
+          <div class="hp" aria-hidden="true"><label>Leave blank <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+          <!-- STEP 1: Program -->
+          <section class="form-step" data-step="Program" aria-labelledby="s1">
+            <h2 id="s1">Choose your program</h2>
+            <p class="step-intro">Tell us how and where you'd like to serve.</p>
+
+            <fieldset>
+              <legend>Program</legend>
+              <div class="choice-group" data-required="track" data-label="Program">
+                <div class="tiles cols-2">
+                  <label class="tile"><input type="radio" name="track" value="Student Missionary" required><span class="tile-body"><strong>Student Missionary</strong><small>Ages 17+, in school or recently graduated. A summer, a semester or a year.</small></span></label>
+                  <label class="tile"><input type="radio" name="track" value="Long-Term Missionary"><span class="tile-body"><strong>Long-Term Missionary</strong><small>Ages 18+, out of school. A year or more of full-time service.</small></span></label>
+                </div>
+                <p class="error-msg">Please choose a program.</p>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Where would you like to serve?</legend>
+              <p class="fieldset-hint">Choose as many as you like.</p>
+              <div class="choice-group" data-required="countries" data-label="Preferred countries">
+                <div class="tiles compact">
+                  <label class="tile"><input type="checkbox" name="countries" value="India"><span class="tile-body"><strong>India</strong></span></label>
+                  <label class="tile"><input type="checkbox" name="countries" value="Nepal"><span class="tile-body"><strong>Nepal</strong></span></label>
+                  <label class="tile"><input type="checkbox" name="countries" value="The Philippines"><span class="tile-body"><strong>The Philippines</strong></span></label>
+                  <label class="tile"><input type="checkbox" name="countries" value="China"><span class="tile-body"><strong>China</strong></span></label>
+                  <label class="tile"><input type="checkbox" name="countries" value="Romania"><span class="tile-body"><strong>Romania</strong></span></label>
+                  <label class="tile"><input type="checkbox" name="countries" value="Ukraine"><span class="tile-body"><strong>Ukraine</strong></span></label>
+                  <label class="tile"><input type="checkbox" name="countries" value="Lithuania"><span class="tile-body"><strong>Lithuania</strong></span></label>
+                  <label class="tile"><input type="checkbox" name="countries" value="Wherever I'm needed"><span class="tile-body"><strong>Wherever I'm needed</strong></span></label>
+                </div>
+                <p class="error-msg">Choose at least one option.</p>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Availability</legend>
+              <div class="row">
+                <div class="field col-6">
+                  <input type="date" id="start_date" name="start_date" required placeholder=" ">
+                  <label for="start_date">Earliest start date</label>
+                  <p class="error-msg">Enter the earliest date you could leave.</p>
+                </div>
+                <div class="field col-6">
+                  <select id="duration" name="duration" required>
+                    <option value="" disabled selected></option>
+                    <option>Summer (2–3 months)</option>
+                    <option>One semester (4–6 months)</option>
+                    <option>One school year (9–10 months)</option>
+                    <option>One year</option>
+                    <option>Two years or more</option>
+                    <option>Open / not sure yet</option>
+                  </select>
+                  <label for="duration">How long can you serve?</label>
+                  <p class="error-msg">Choose a length of service.</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="field col-12">
+                  <select id="heard_from" name="heard_from">
+                    <option value="" selected></option>
+                    <option>Friend or family</option>
+                    <option>My church</option>
+                    <option>My school</option>
+                    <option>Laymen Ministries magazine</option>
+                    <option>Website or social media</option>
+                    <option>Former volunteer</option>
+                    <option>Other</option>
+                  </select>
+                  <label for="heard_from">How did you hear about us? <span class="optional">(optional)</span></label>
+                </div>
+              </div>
+            </fieldset>
+          </section>
+
+          <!-- STEP 2: About you -->
+          <section class="form-step" data-step="About you" aria-labelledby="s2">
+            <h2 id="s2">About you</h2>
+            <p class="step-intro">Enter your name the way it appears on your passport.</p>
+
+            <fieldset>
+              <legend>Name</legend>
+              <div class="row">
+                <div class="field col-4"><input id="first_name" name="first_name" required autocomplete="given-name" placeholder=" "><label for="first_name">First name</label><p class="error-msg">Enter your first name.</p></div>
+                <div class="field col-4"><input id="middle_name" name="middle_name" autocomplete="additional-name" placeholder=" "><label for="middle_name">Middle name <span class="optional">(optional)</span></label></div>
+                <div class="field col-4"><input id="last_name" name="last_name" required autocomplete="family-name" placeholder=" "><label for="last_name">Last name</label><p class="error-msg">Enter your last name.</p></div>
+              </div>
+              <div class="row">
+                <div class="field col-6">
+                  <input type="date" id="dob" name="dob" required autocomplete="bday" placeholder=" ">
+                  <label for="dob">Date of birth</label>
+                  <p class="error-msg">Enter your date of birth.</p>
+                </div>
+                <div class="field col-6">
+                  <select id="gender" name="gender" required>
+                    <option value="" disabled selected></option>
+                    <option>Male</option>
+                    <option>Female</option>
+                  </select>
+                  <label for="gender">Gender</label>
+                  <p class="error-msg">Choose one.</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="field col-6">
+                  <select id="marital_status" name="marital_status" required>
+                    <option value="" disabled selected></option>
+                    <option>Single</option>
+                    <option>Engaged</option>
+                    <option>Married</option>
+                    <option>Divorced</option>
+                    <option>Widowed</option>
+                  </select>
+                  <label for="marital_status">Marital status</label>
+                  <p class="error-msg">Choose one.</p>
+                </div>
+                <div class="field col-6" data-show-if="marital_status=Married">
+                  <input id="spouse_name" name="spouse_name" placeholder=" ">
+                  <label for="spouse_name">Spouse's full name</label>
+                </div>
+              </div>
+              <div class="row" data-show-if="marital_status=Married">
+                <div class="field col-12">
+                  <input id="children" name="children" placeholder=" ">
+                  <label for="children">Children going with you (names &amp; ages) <span class="optional">(optional)</span></label>
+                  <p class="help">If your spouse also plans to serve, they should submit their own application.</p>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Contact</legend>
+              <div class="row">
+                <div class="field col-6"><input type="email" id="email" name="email" required autocomplete="email" placeholder=" "><label for="email">Email</label><p class="error-msg">Enter a valid email address.</p></div>
+                <div class="field col-6"><input type="tel" id="phone" name="phone" required autocomplete="tel" placeholder=" " pattern="[0-9+()\-.\s]{7,}"><label for="phone">Phone</label><p class="error-msg">Enter a phone number we can reach you at.</p></div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Home address</legend>
+              <div class="row">
+                <div class="field col-8"><input id="address1" name="address1" required autocomplete="address-line1" placeholder=" "><label for="address1">Street address</label><p class="error-msg">Enter your street address.</p></div>
+                <div class="field col-4"><input id="address2" name="address2" autocomplete="address-line2" placeholder=" "><label for="address2">Apt, suite <span class="optional">(optional)</span></label></div>
+              </div>
+              <div class="row">
+                <div class="field col-4"><input id="city" name="city" required autocomplete="address-level2" placeholder=" "><label for="city">City</label><p class="error-msg">Enter your city.</p></div>
+                <div class="field col-4"><input id="state" name="state" required autocomplete="address-level1" placeholder=" "><label for="state">State / province</label><p class="error-msg">Enter your state or province.</p></div>
+                <div class="field col-4"><input id="postal" name="postal" required autocomplete="postal-code" placeholder=" "><label for="postal">ZIP / postal code</label><p class="error-msg">Enter your ZIP or postal code.</p></div>
+              </div>
+              <div class="row">
+                <div class="field col-6"><input id="country" name="country" required autocomplete="country-name" placeholder=" " value="United States"><label for="country">Country</label><p class="error-msg">Enter your country.</p></div>
+                <div class="field col-6"><input id="citizenship" name="citizenship" required placeholder=" "><label for="citizenship">Citizenship</label><p class="error-msg">Enter your citizenship.</p></div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Passport</legend>
+              <div class="choice-group" data-required="passport" data-label="Passport">
+                <div class="tiles compact">
+                  <label class="tile"><input type="radio" name="passport" value="Yes, valid passport" required><span class="tile-body"><strong>I have one</strong></span></label>
+                  <label class="tile"><input type="radio" name="passport" value="Applied for"><span class="tile-body"><strong>I've applied</strong></span></label>
+                  <label class="tile"><input type="radio" name="passport" value="No passport yet"><span class="tile-body"><strong>Not yet</strong></span></label>
+                </div>
+                <p class="error-msg">Choose one.</p>
+              </div>
+              <div class="row" data-show-if="passport=Yes, valid passport">
+                <div class="field col-6"><input type="date" id="passport_expiry" name="passport_expiry" placeholder=" "><label for="passport_expiry">Passport expiration date</label></div>
+              </div>
+            </fieldset>
+          </section>
+
+          <!-- STEP 3: Background -->
+          <section class="form-step" data-step="Background" aria-labelledby="s3">
+            <h2 id="s3">Education &amp; experience</h2>
+            <p class="step-intro">No degree needed. This helps us place you where your gifts fit best.</p>
+
+            <fieldset>
+              <legend>Education</legend>
+              <div class="row">
+                <div class="field col-6">
+                  <select id="education_level" name="education_level" required>
+                    <option value="" disabled selected></option>
+                    <option>Currently in high school</option>
+                    <option>High school diploma / GED</option>
+                    <option>Some college / currently in college</option>
+                    <option>Associate degree</option>
+                    <option>Bachelor's degree</option>
+                    <option>Graduate degree</option>
+                    <option>Trade / vocational certificate</option>
+                  </select>
+                  <label for="education_level">Highest education (or current)</label>
+                  <p class="error-msg">Choose one.</p>
+                </div>
+                <div class="field col-6"><input id="school" name="school" placeholder=" "><label for="school">School name <span class="optional">(optional)</span></label></div>
+              </div>
+              <div class="row">
+                <div class="field col-6"><input id="study_field" name="study_field" placeholder=" "><label for="study_field">Major / field of study <span class="optional">(optional)</span></label></div>
+                <div class="field col-6"><input id="grad_year" name="grad_year" inputmode="numeric" pattern="(19|20)[0-9]{2}" placeholder=" "><label for="grad_year">Graduation year (or expected) <span class="optional">(optional)</span></label><p class="error-msg">Use a 4-digit year, like 2026.</p></div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Work</legend>
+              <div class="row">
+                <div class="field col-6"><input id="occupation" name="occupation" placeholder=" "><label for="occupation">Current occupation <span class="optional">(optional)</span></label></div>
+                <div class="field col-6"><input id="employer" name="employer" placeholder=" "><label for="employer">Employer <span class="optional">(optional)</span></label></div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Skills you'd bring</legend>
+              <p class="fieldset-hint">Choose any that apply.</p>
+              <div class="choice-group">
+                <div class="tiles compact">
+                  <label class="tile"><input type="checkbox" name="skills" value="Teaching"><span class="tile-body"><strong>Teaching</strong></span></label>
+                  <label class="tile"><input type="checkbox" name="skills" value="Teaching English (ESL)"><span class="tile-body"><strong>Teaching English</strong></span></label>
+                  <label class="tile"><input type="checkbox" name="skills" value="Childcare"><span class="tile-body"><strong>Childcare</strong></span></label>
+                  <label class="tile"><input type="checkbox" name="skills" value="Bible work / preaching"><span class="tile-body"><strong>Bible work</strong></span></label>
+                  <label class="tile"><input type="checkbox" name="skills" value="Medical / nursing"><span class="tile-body"><strong>Medical / nursing</strong></span></label>
+                  <label class="tile"><input type="checkbox" name="skills" value="Health education"><span class="tile-body"><strong>Health education</strong></span></label>
+                  <label class="tile"><input type="checkbox" name="skills" value="Construction / trades"><span class="tile-body"><strong>Construction</strong></span></label>
+                  <label class="tile"><input type="checkbox" name="skills" value="Cooking"><span class="tile-body"><strong>Cooking</strong></span></label>
+                  <label class="tile"><input type="checkbox" name="skills" value="Music"><span class="tile-body"><strong>Music</strong></span></label>
+                  <label class="tile"><input type="checkbox" name="skills" value="Agriculture / gardening"><span class="tile-body"><strong>Agriculture</strong></span></label>
+                  <label class="tile"><input type="checkbox" name="skills" value="Computers / media"><span class="tile-body"><strong>Computers / media</strong></span></label>
+                  <label class="tile"><input type="checkbox" name="skills" value="Office / accounting"><span class="tile-body"><strong>Office / accounting</strong></span></label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="field col-6"><input id="languages" name="languages" placeholder=" "><label for="languages">Languages you speak</label></div>
+                <div class="field col-6"><input id="other_skills" name="other_skills" placeholder=" "><label for="other_skills">Other skills <span class="optional">(optional)</span></label></div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Mission experience</legend>
+              <div class="row">
+                <div class="field col-12">
+                  <textarea id="experience" name="experience" placeholder=" " maxlength="1500"></textarea>
+                  <label for="experience">Any previous mission or volunteer experience? <span class="optional">(optional)</span></label>
+                </div>
+              </div>
+            </fieldset>
+          </section>
+
+          <!-- STEP 4: Faith -->
+          <section class="form-step" data-step="Faith" aria-labelledby="s4">
+            <h2 id="s4">Your faith journey</h2>
+            <p class="step-intro">There are no wrong answers here. We just want to get to know you.</p>
+
+            <fieldset>
+              <legend>Church</legend>
+              <div class="row">
+                <div class="field col-6"><input id="church_name" name="church_name" required placeholder=" "><label for="church_name">Home church</label><p class="error-msg">Enter the church you attend.</p></div>
+                <div class="field col-6"><input id="church_location" name="church_location" required placeholder=" "><label for="church_location">Church city &amp; state</label><p class="error-msg">Enter the church's location.</p></div>
+              </div>
+              <div class="row">
+                <div class="field col-6"><input id="denomination" name="denomination" required placeholder=" "><label for="denomination">Denomination</label><p class="error-msg">Enter your denomination.</p></div>
+                <div class="field col-6"><input id="pastor_name" name="pastor_name" required placeholder=" "><label for="pastor_name">Pastor's name</label><p class="error-msg">Enter your pastor's name.</p></div>
+              </div>
+              <div class="choice-group" data-required="baptized" data-label="Baptized">
+                <span class="label">Have you been baptized?</span>
+                <div class="tiles compact">
+                  <label class="tile"><input type="radio" name="baptized" value="Yes" required><span class="tile-body"><strong>Yes</strong></span></label>
+                  <label class="tile"><input type="radio" name="baptized" value="No"><span class="tile-body"><strong>No</strong></span></label>
+                  <label class="tile"><input type="radio" name="baptized" value="Preparing for baptism"><span class="tile-body"><strong>Preparing</strong></span></label>
+                </div>
+                <p class="error-msg">Choose one.</p>
+              </div>
+              <div class="row" data-show-if="baptized=Yes">
+                <div class="field col-6"><input id="baptism_year" name="baptism_year" inputmode="numeric" pattern="(19|20)[0-9]{2}" placeholder=" "><label for="baptism_year">Year baptized <span class="optional">(optional)</span></label><p class="error-msg">Use a 4-digit year.</p></div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>In your own words</legend>
+              <div class="row">
+                <div class="field col-12">
+                  <textarea id="testimony" name="testimony" required placeholder=" " minlength="50" maxlength="2500"></textarea>
+                  <label for="testimony">Tell us about your relationship with Jesus</label>
+                  <p class="error-msg">Please write a few sentences (at least 50 characters).</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="field col-12">
+                  <textarea id="why_serve" name="why_serve" required placeholder=" " minlength="50" maxlength="2500"></textarea>
+                  <label for="why_serve">Why do you want to be a missionary?</label>
+                  <p class="error-msg">Please write a few sentences (at least 50 characters).</p>
+                </div>
+              </div>
+            </fieldset>
+          </section>
+
+          <!-- STEP 5: Health & safety -->
+          <section class="form-step" data-step="Health" aria-labelledby="s5">
+            <h2 id="s5">Health &amp; safety</h2>
+            <p class="step-intro">This is kept confidential and helps us place and care for you well.</p>
+
+            <fieldset>
+              <legend>Health</legend>
+              <div class="row">
+                <div class="field col-6">
+                  <select id="health" name="health" required>
+                    <option value="" disabled selected></option>
+                    <option>Excellent</option>
+                    <option>Good</option>
+                    <option>Fair</option>
+                    <option>Poor</option>
+                  </select>
+                  <label for="health">General health</label>
+                  <p class="error-msg">Choose one.</p>
+                </div>
+                <div class="field col-6"><input id="diet" name="diet" placeholder=" "><label for="diet">Dietary needs or allergies <span class="optional">(optional)</span></label></div>
+              </div>
+              <div class="row">
+                <div class="field col-12">
+                  <textarea id="health_notes" name="health_notes" placeholder=" " maxlength="1500"></textarea>
+                  <label for="health_notes">Physical or emotional conditions or medications we should know about <span class="optional">(optional)</span></label>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Lifestyle &amp; background</legend>
+              <div class="choice-group" data-required="substances" data-label="Substance use">
+                <span class="label">In the past year, have you used alcohol, tobacco, vaping products or recreational drugs?</span>
+                <div class="tiles compact cols-2">
+                  <label class="tile"><input type="radio" name="substances" value="No" required><span class="tile-body"><strong>No</strong></span></label>
+                  <label class="tile"><input type="radio" name="substances" value="Yes"><span class="tile-body"><strong>Yes</strong></span></label>
+                </div>
+                <p class="error-msg">Choose one.</p>
+              </div>
+              <div class="choice-group" data-required="convictions" data-label="Convictions">
+                <span class="label">Have you ever been convicted of a crime (other than minor traffic violations)?</span>
+                <div class="tiles compact cols-2">
+                  <label class="tile"><input type="radio" name="convictions" value="No" required><span class="tile-body"><strong>No</strong></span></label>
+                  <label class="tile"><input type="radio" name="convictions" value="Yes"><span class="tile-body"><strong>Yes</strong></span></label>
+                </div>
+                <p class="error-msg">Choose one.</p>
+              </div>
+              <div class="row" data-show-if="substances=Yes|convictions=Yes">
+                <div class="field col-12">
+                  <textarea id="background_explain" name="background_explain" placeholder=" " maxlength="1500"></textarea>
+                  <label for="background_explain">Please explain. A "yes" doesn't automatically disqualify you.</label>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset data-prefix="Emergency contact">
+              <legend>Emergency contact</legend>
+              <div class="row">
+                <div class="field col-6"><input id="emergency_name" name="emergency_name" required placeholder=" "><label for="emergency_name">Full name</label><p class="error-msg">Enter an emergency contact.</p></div>
+                <div class="field col-6"><input id="emergency_relationship" name="emergency_relationship" required placeholder=" "><label for="emergency_relationship">Relationship</label><p class="error-msg">How do you know them?</p></div>
+              </div>
+              <div class="row">
+                <div class="field col-6"><input type="tel" id="emergency_phone" name="emergency_phone" required placeholder=" " pattern="[0-9+()\-.\s]{7,}"><label for="emergency_phone">Phone</label><p class="error-msg">Enter a phone number.</p></div>
+                <div class="field col-6"><input type="email" id="emergency_email" name="emergency_email" placeholder=" "><label for="emergency_email">Email <span class="optional">(optional)</span></label><p class="error-msg">Enter a valid email.</p></div>
+              </div>
+            </fieldset>
+
+            <fieldset id="guardian-block" class="hidden">
+              <legend>Parent or guardian consent</legend>
+              <div class="callout"><strong>You're under 18.</strong> A parent or guardian needs to give consent. We'll email them to confirm.</div>
+              <div class="row">
+                <div class="field col-6"><input id="guardian_name" name="guardian_name" placeholder=" " data-guardian-required><label for="guardian_name">Parent / guardian name</label><p class="error-msg">Required for applicants under 18.</p></div>
+                <div class="field col-6"><input type="email" id="guardian_email" name="guardian_email" placeholder=" " data-guardian-required><label for="guardian_email">Parent / guardian email</label><p class="error-msg">Enter a valid email.</p></div>
+              </div>
+              <div class="row">
+                <div class="field col-6"><input type="tel" id="guardian_phone" name="guardian_phone" placeholder=" " data-guardian-required pattern="[0-9+()\-.\s]{7,}"><label for="guardian_phone">Parent / guardian phone</label><p class="error-msg">Enter a phone number.</p></div>
+              </div>
+            </fieldset>
+          </section>
+
+          <!-- STEP 6: References -->
+          <section class="form-step" data-step="References" aria-labelledby="s6">
+            <h2 id="s6">References</h2>
+            <p class="step-intro">We'll contact them for you, so there's nothing to print or mail. Please don't list relatives.</p>
+
+            <div class="repeat-item" data-prefix="Reference 1">
+              <h4>Reference 1: Pastor or church leader</h4>
+              <div class="row">
+                <div class="field col-6"><input id="ref1_name" name="ref1_name" required placeholder=" "><label for="ref1_name">Full name</label><p class="error-msg">Enter a name.</p></div>
+                <div class="field col-6"><input id="ref1_relationship" name="ref1_relationship" required placeholder=" " value="Pastor"><label for="ref1_relationship">Role / relationship</label><p class="error-msg">How do you know them?</p></div>
+              </div>
+              <div class="row">
+                <div class="field col-6"><input type="email" id="ref1_email" name="ref1_email" required placeholder=" "><label for="ref1_email">Email</label><p class="error-msg">Enter a valid email.</p></div>
+                <div class="field col-6"><input type="tel" id="ref1_phone" name="ref1_phone" required placeholder=" " pattern="[0-9+()\-.\s]{7,}"><label for="ref1_phone">Phone</label><p class="error-msg">Enter a phone number.</p></div>
+              </div>
+            </div>
+
+            <div class="repeat-item" data-prefix="Reference 2">
+              <h4>Reference 2: Teacher or employer</h4>
+              <div class="row">
+                <div class="field col-6"><input id="ref2_name" name="ref2_name" required placeholder=" "><label for="ref2_name">Full name</label><p class="error-msg">Enter a name.</p></div>
+                <div class="field col-6"><input id="ref2_relationship" name="ref2_relationship" required placeholder=" "><label for="ref2_relationship">Role / relationship</label><p class="error-msg">How do you know them?</p></div>
+              </div>
+              <div class="row">
+                <div class="field col-6"><input type="email" id="ref2_email" name="ref2_email" required placeholder=" "><label for="ref2_email">Email</label><p class="error-msg">Enter a valid email.</p></div>
+                <div class="field col-6"><input type="tel" id="ref2_phone" name="ref2_phone" required placeholder=" " pattern="[0-9+()\-.\s]{7,}"><label for="ref2_phone">Phone</label><p class="error-msg">Enter a phone number.</p></div>
+              </div>
+            </div>
+
+            <div class="repeat-item" data-prefix="Reference 3">
+              <h4>Reference 3: Friend or mentor (not a relative)</h4>
+              <div class="row">
+                <div class="field col-6"><input id="ref3_name" name="ref3_name" required placeholder=" "><label for="ref3_name">Full name</label><p class="error-msg">Enter a name.</p></div>
+                <div class="field col-6"><input id="ref3_relationship" name="ref3_relationship" required placeholder=" "><label for="ref3_relationship">Role / relationship</label><p class="error-msg">How do you know them?</p></div>
+              </div>
+              <div class="row">
+                <div class="field col-6"><input type="email" id="ref3_email" name="ref3_email" required placeholder=" "><label for="ref3_email">Email</label><p class="error-msg">Enter a valid email.</p></div>
+                <div class="field col-6"><input type="tel" id="ref3_phone" name="ref3_phone" required placeholder=" " pattern="[0-9+()\-.\s]{7,}"><label for="ref3_phone">Phone</label><p class="error-msg">Enter a phone number.</p></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- STEP 7: Review & submit -->
+          <section class="form-step" data-step="Review" aria-labelledby="s7">
+            <h2 id="s7">Review &amp; submit</h2>
+            <p class="step-intro">Check your answers. Select "Edit" to change anything.</p>
+
+            <div id="review"></div>
+
+            <fieldset style="margin-top: 28px;">
+              <legend>Agreement</legend>
+              <div class="agree"><input type="checkbox" id="agree_truth" name="agree_truth" required><label for="agree_truth">The information I've given is true and complete to the best of my knowledge.</label></div>
+              <div class="agree"><input type="checkbox" id="agree_guidelines" name="agree_guidelines" required><label for="agree_guidelines">I've read the <a href="volunteer.html#guidelines" target="_blank" rel="noopener">volunteer guidelines</a> and agree to follow them if accepted.</label></div>
+              <div class="agree"><input type="checkbox" id="agree_contact" name="agree_contact" required><label for="agree_contact">I authorize Laymen Ministries to contact my references and, if needed, run a background check.</label></div>
+              <div class="row" style="margin-top: 14px;">
+                <div class="field col-8"><input id="signature" name="signature" required placeholder=" " autocomplete="name"><label for="signature">Type your full name to sign</label><p class="error-msg">Type your full name exactly as entered above.</p></div>
+                <div class="field col-4 filled"><input id="signed_date" name="signed_date" readonly placeholder=" "><label for="signed_date">Date</label></div>
+              </div>
+            </fieldset>
+          </section>
+
+          <!-- Success -->
+          <section class="form-step" id="success-step" aria-live="polite">
+            <div class="success">
+              <div class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+              <h2>Application received</h2>
+              <p>Thank you for your willingness to serve. We've emailed a copy to you and our team will be in touch within 1–2 weeks.</p>
+              <div class="ref">Reference: <span id="ref-id"></span></div>
+              <div class="hero-actions" style="margin-top:0;">
+                <a class="btn btn-primary" href="volunteer.html">Back to Volunteer</a>
+                <button type="button" class="btn btn-ghost" id="print-copy">Print a copy</button>
+              </div>
+            </div>
+          </section>
+
+          <div class="form-nav" id="form-nav">
+            <button type="button" class="btn btn-ghost" id="prev-btn">Back</button>
+            <span class="save-state" id="save-state" aria-live="polite"></span>
+            <button type="button" class="btn btn-primary" id="next-btn">Continue</button>
+          </div>
+        </form>
+      </div>
+
+      <aside class="apply-aside" aria-label="Application summary">
+        <div class="summary-card">
+          <h3>Your application</h3>
+          <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
+          <div class="details">
+            <div class="row-kv"><span>Program</span><span id="sum-track">—</span></div>
+            <div class="row-kv"><span>Countries</span><span id="sum-countries">—</span></div>
+            <div class="row-kv"><span>Start</span><span id="sum-start">—</span></div>
+            <div class="row-kv"><span>Length</span><span id="sum-duration">—</span></div>
+            <div class="row-kv"><span>Applicant</span><span id="sum-name">—</span></div>
+          </div>
+          <div class="help-box">
+            Questions? Email <a href="mailto:office@lmn.org">office@lmn.org</a> or call <a href="tel:+12082455388">(208) 245-5388</a>.
+            <br><br>
+            <button type="button" class="btn btn-ghost btn-sm" id="clear-draft">Clear saved draft</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="legal">
+        <span>Copyright © <span data-year></span> Laymen Ministries · 414 Zapada Rd., St. Maries, ID 83861</span>
+        <a href="contactus.html">Contact Us</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/site.js"></script>
+  <script src="assets/js/apply.js"></script>
+</body>
+</html>
