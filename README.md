@@ -43,6 +43,8 @@ php -S 127.0.0.1:8000
 
 ## Matching the main site
 
+**Logo:** save the Laymen Ministries logo from lmn.org as `assets/img/lmn-logo.png` (any height; it's displayed at 34px tall). Until the file is there, the header shows a text placeholder.
+
 All colors are defined at the top of `assets/css/volunteer.css` (`--brand` navy, `--accent` gold). Change those values to match lmn.org's exact colors and logo. Dark mode is supported automatically.
 
 ## Content to confirm before launch
