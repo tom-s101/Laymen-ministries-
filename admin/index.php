@@ -111,6 +111,7 @@ function status_class(string $s): string
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
   <title>Volunteer Applications · Admin</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Noto+Serif:wght@400;700&display=swap">
   <link rel="stylesheet" href="../assets/css/volunteer.css">
   <style>
     .admin-wrap { padding: 32px 0 80px; }
@@ -121,7 +122,7 @@ function status_class(string $s): string
     .filters input { flex: 1; min-width: 200px; }
     .counts { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
     .counts a { font-size: 13px; padding: 6px 12px; border-radius: 980px; background: var(--surface); color: var(--text-muted); border: 1px solid var(--border-soft); }
-    .counts a.on { background: var(--brand); color: #fff; border-color: var(--brand); }
+    .counts a.on { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
     table.list { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
     .list th, .list td { text-align: left; padding: 14px 16px; border-bottom: 1px solid var(--border-soft); font-size: 15px; }
     .list th { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); font-weight: 600; background: var(--bg-alt); }
@@ -148,9 +149,9 @@ function status_class(string $s): string
   </style>
 </head>
 <body class="apply-page">
-  <header class="site-header">
-    <div class="container">
-      <a class="brand" href="<?= h($self) ?>"><img class="brand-logo" src="../assets/img/lmn-logo.png" alt="Laymen Ministries" onerror="this.hidden=true"> Volunteer Admin</a>
+  <header class="site-header" style="border-bottom:1px solid var(--border-soft);">
+    <div class="container header-bar">
+      <a class="brand" href="<?= h($self) ?>" style="gap:14px;"><img class="brand-logo" src="../assets/img/lmn-logo.png" alt="Laymen Ministries" width="686" height="52"> <span style="font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);">Volunteer Admin</span></a>
       <?php if ($authed): ?><a href="?logout=1" style="font-size:13px;">Sign out</a><?php endif; ?>
     </div>
   </header>

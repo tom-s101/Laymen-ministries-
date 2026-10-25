@@ -103,7 +103,7 @@ function lmn_render_copy(array $app, bool $standalone = true): string
                 . h($f['label']) . '</th><td style="padding:8px 0;border-top:1px solid #e8e8ed;font-size:14px;white-space:pre-wrap;">'
                 . h($f['value']) . '</td></tr>';
         }
-        $sections .= '<h2 style="font-size:16px;margin:28px 0 6px;color:#1f3a5f;">' . h($sec['title']) . '</h2>'
+        $sections .= '<h2 style="font-size:16px;margin:28px 0 6px;color:#893600;">' . h($sec['title']) . '</h2>'
             . '<table style="width:100%;border-collapse:collapse;">' . $rows . '</table>';
     }
 
@@ -117,13 +117,13 @@ function lmn_render_copy(array $app, bool $standalone = true): string
     }
 
     $body = '<div style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,Arial,sans-serif;color:#1d1d1f;max-width:760px;margin:0 auto;">'
-        . '<div style="border-bottom:3px solid #1f3a5f;padding-bottom:12px;margin-bottom:8px;">'
-        . '<div style="font-size:12px;letter-spacing:.08em;color:#c8952e;font-weight:600;">LAYMEN MINISTRIES</div>'
+        . '<div style="border-bottom:3px solid #893600;padding-bottom:12px;margin-bottom:8px;">'
+        . '<div style="font-size:12px;letter-spacing:.08em;color:#893600;font-weight:600;">LAYMEN MINISTRIES</div>'
         . '<h1 style="font-size:24px;margin:4px 0;">' . h($d['track'] ?? 'Volunteer') . ' Application</h1>'
         . '<div style="font-size:13px;color:#6e6e73;">Reference <strong>' . h($app['id']) . '</strong> &middot; Submitted ' . h($submitted) . '</div>'
         . '</div>'
         . $sections
-        . '<h2 style="font-size:16px;margin:28px 0 6px;color:#1f3a5f;">Agreement &amp; signature</h2>'
+        . '<h2 style="font-size:16px;margin:28px 0 6px;color:#893600;">Agreement &amp; signature</h2>'
         . '<ul style="list-style:none;padding:0;margin:0 0 12px;font-size:14px;line-height:1.8;">' . $agreements . '</ul>'
         . '<p style="font-size:14px;margin:0;">Signed electronically: <strong style="font-family:Georgia,serif;font-size:18px;font-style:italic;">' . h($d['signature'] ?? '') . '</strong></p>'
         . '<p style="font-size:12px;color:#6e6e73;margin-top:4px;">Date: ' . h($d['signed_date'] ?? '') . ' &middot; IP ' . h($app['meta']['ip'] ?? '') . '</p>'

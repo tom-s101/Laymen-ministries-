@@ -43,9 +43,10 @@ php -S 127.0.0.1:8000
 
 ## Matching the main site
 
-**Logo:** save the Laymen Ministries logo from lmn.org as `assets/img/lmn-logo.png` (any height; it's displayed at 34px tall). Until the file is there, the header shows a text placeholder.
-
-All colors are defined at the top of `assets/css/volunteer.css` (`--brand` navy, `--accent` gold). Change those values to match lmn.org's exact colors and logo. Dark mode is supported automatically.
+- **Logo:** `assets/img/lmn-logo.png` is the Laymen Ministries logo, cropped from lmn.org.
+- **Colors and fonts** come from lmn.org: rust logo (`#893600`), gold menu and buttons (`#ffc55f`), warm gray text (`#483f34` / `#6f6a66`), uppercase menu and serif body text. They're all defined at the top of `assets/css/volunteer.css`.
+- **Menu:** the top menu copies the main site (Home, About ▾, Mission Projects ▾, Videos, Days of Noah, Featured Articles, Store, Donate, Contact). Every link goes to `https://www.lmn.org/…`, so a preview copy hosted elsewhere still takes visitors to the live site. Once the page is on lmn.org, those can become relative links if you like.
+- **Days of Noah** currently links to the lmn.org home page because I couldn't confirm the page's address. Update it in the menu on both `volunteer.html` and `volunteer-apply.html`.
 
 ## Content to confirm before launch
 
@@ -53,6 +54,5 @@ I couldn't reach lmn.org while building this, so the text was drafted from what'
 
 - **Guidelines** (`volunteer.html#guidelines`): lifestyle, dress, relationships, vegetarian meals, support raising
 - **FAQ answers**: costs, timelines, ages, the "apply 3–4 months ahead" advice
-- **Country descriptions** and which countries currently take volunteers
+- **Project descriptions**: the six projects match the main site's "Our Missions" list. The India, Nepal and Lithuania blurbs are short placeholders.
 - **Application questions**: compare with the paper Student and Long-Term applications and add or remove fields as needed. Any field added to the form automatically appears in the review step, the emails, the admin view and the PDF copy.
-- The **hero stats** (7 countries, 120+ workers, since 1988)

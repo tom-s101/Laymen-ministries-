@@ -5,33 +5,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>LAYMEN MINISTRIES - VOLUNTEER APPLICATION</title>
   <meta name="description" content="Apply online to serve as a student or long-term missionary with Laymen Ministries.">
-  <meta name="theme-color" content="#1f3a5f">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Noto+Serif:wght@400;700&display=swap">
   <link rel="stylesheet" href="assets/css/volunteer.css">
 </head>
 <body class="apply-page">
   <a class="skip-link" href="#main">Skip to form</a>
 
   <header class="site-header">
-    <div class="container">
-      <a class="brand" href="index.html" aria-label="Laymen Ministries home">
-        <img class="brand-logo" src="assets/img/lmn-logo.png" alt="Laymen Ministries" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
-        <span class="brand-fallback" hidden><span class="brand-mark" aria-hidden="true">L</span> LAYMEN MINISTRIES</span>
+    <div class="container header-bar">
+      <a class="brand" href="https://www.lmn.org/" aria-label="Laymen Ministries home">
+        <img class="brand-logo" src="assets/img/lmn-logo.png" alt="Laymen Ministries" width="686" height="52">
       </a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
-        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 6h16M2 14h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true"><path d="M1 2h20M1 8h20M1 14h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
-      <nav class="site-nav" id="site-nav" aria-label="Main">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="aboutus.html">About Us</a></li>
-          <li><a href="missions.html">Missions</a></li>
-          <li><a href="volunteer.html" aria-current="page">Volunteer</a></li>
-          <li><a href="videoroom.html">Video Room</a></li>
-          <li><a href="catalog/index.php">Store</a></li>
-          <li><a href="contactus.html">Contact</a></li>
-        </ul>
-      </nav>
     </div>
+    <!-- Links go to the live lmn.org site so this page can be previewed on its own. -->
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <div class="container">
+        <ul class="menu">
+          <li><a href="https://www.lmn.org/index.html">Home</a></li>
+          <li class="has-sub">
+            <button type="button" aria-expanded="false">About <span class="caret" aria-hidden="true"></span></button>
+            <ul class="submenu">
+              <li><a href="https://www.lmn.org/aboutus.html">About Us</a></li>
+              <li><a href="https://www.lmn.org/lmproductionshistory.html">LM Productions History</a></li>
+            </ul>
+          </li>
+          <li class="has-sub current">
+            <button type="button" aria-expanded="false">Mission Projects <span class="caret" aria-hidden="true"></span></button>
+            <ul class="submenu">
+              <li><a href="https://www.lmn.org/missions.html">Missions &amp; Applications</a></li>
+              <li><a href="volunteer.html" aria-current="page">Volunteer &amp; Apply Online</a></li>
+              <li class="sep" role="separator"></li>
+              <li><a href="https://www.lmn.org/missions_philippines.html">The Philippines</a></li>
+              <li><a href="https://www.lmn.org/missions_india_south.html">India</a></li>
+              <li><a href="https://www.lmn.org/missions_indiaorphans.html">India Orphans</a></li>
+              <li><a href="https://www.lmn.org/missions_nepal.html">Nepal</a></li>
+              <li><a href="https://www.lmn.org/missions_romania.html">Romania</a></li>
+              <li><a href="https://www.lmn.org/missions_lithuania.html">Lithuania</a></li>
+            </ul>
+          </li>
+          <li><a href="https://www.lmn.org/videoroom.html">Videos</a></li>
+          <li><a href="https://www.lmn.org/">Days of Noah</a></li>
+          <li><a href="https://www.lmn.org/articles.html">Featured Articles</a></li>
+          <li><a href="https://www.lmn.org/catalog/index.php">Store</a></li>
+          <li class="donate"><a href="https://www.lmn.org/catalog/index.php?cPath=744">Donate</a></li>
+          <li><a href="https://www.lmn.org/contactus.html">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
   </header>
 
   <main id="main" class="container">
@@ -73,10 +99,9 @@
                 <div class="tiles compact">
                   <label class="tile"><input type="checkbox" name="countries" value="The Philippines"><span class="tile-body"><strong>The Philippines</strong><small>Teaching · most openings</small></span></label>
                   <label class="tile"><input type="checkbox" name="countries" value="India"><span class="tile-body"><strong>India</strong></span></label>
+                  <label class="tile"><input type="checkbox" name="countries" value="India Orphans"><span class="tile-body"><strong>India Orphans</strong></span></label>
                   <label class="tile"><input type="checkbox" name="countries" value="Nepal"><span class="tile-body"><strong>Nepal</strong></span></label>
-                  <label class="tile"><input type="checkbox" name="countries" value="China"><span class="tile-body"><strong>China</strong></span></label>
                   <label class="tile"><input type="checkbox" name="countries" value="Romania"><span class="tile-body"><strong>Romania</strong></span></label>
-                  <label class="tile"><input type="checkbox" name="countries" value="Ukraine"><span class="tile-body"><strong>Ukraine</strong></span></label>
                   <label class="tile"><input type="checkbox" name="countries" value="Lithuania"><span class="tile-body"><strong>Lithuania</strong></span></label>
                   <label class="tile"><input type="checkbox" name="countries" value="Wherever I'm needed"><span class="tile-body"><strong>Wherever I'm needed</strong></span></label>
                 </div>
@@ -530,7 +555,7 @@
     <div class="container">
       <div class="legal">
         <span>Copyright © <span data-year></span> Laymen Ministries · 414 Zapada Rd., St. Maries, ID 83861</span>
-        <a href="contactus.html">Contact Us</a>
+        <a href="https://www.lmn.org/contactus.html">Contact Us</a>
       </div>
     </div>
   </footer>
