@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>LAYMEN MINISTRIES - VOLUNTEER</title>
   <meta name="description" content="Serve overseas with Laymen Ministries. See what life as a volunteer looks like, read the guidelines and FAQs, and apply online in about 20 minutes.">
-  <meta name="theme-color" content="#1f3a5f">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Noto+Serif:wght@400;700&display=swap">
   <link rel="stylesheet" href="assets/css/volunteer.css">
 </head>
 <body>
@@ -13,26 +16,49 @@
 
   <!-- Global header: same destinations as the main lmn.org navigation -->
   <header class="site-header">
-    <div class="container">
-      <a class="brand" href="index.html" aria-label="Laymen Ministries home">
-        <img class="brand-logo" src="assets/img/lmn-logo.png" alt="Laymen Ministries" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
-        <span class="brand-fallback" hidden><span class="brand-mark" aria-hidden="true">L</span> LAYMEN MINISTRIES</span>
+    <div class="container header-bar">
+      <a class="brand" href="https://www.lmn.org/" aria-label="Laymen Ministries home">
+        <img class="brand-logo" src="assets/img/lmn-logo.png" alt="Laymen Ministries" width="686" height="52">
       </a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
-        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 6h16M2 14h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true"><path d="M1 2h20M1 8h20M1 14h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
-      <nav class="site-nav" id="site-nav" aria-label="Main">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="aboutus.html">About Us</a></li>
-          <li><a href="missions.html">Missions</a></li>
-          <li><a href="volunteer.html" aria-current="page">Volunteer</a></li>
-          <li><a href="videoroom.html">Video Room</a></li>
-          <li><a href="catalog/index.php">Store</a></li>
-          <li><a href="contactus.html">Contact</a></li>
-        </ul>
-      </nav>
     </div>
+    <!-- Links go to the live lmn.org site so this page can be previewed on its own. -->
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <div class="container">
+        <ul class="menu">
+          <li><a href="https://www.lmn.org/index.html">Home</a></li>
+          <li class="has-sub">
+            <button type="button" aria-expanded="false">About <span class="caret" aria-hidden="true"></span></button>
+            <ul class="submenu">
+              <li><a href="https://www.lmn.org/aboutus.html">About Us</a></li>
+              <li><a href="https://www.lmn.org/lmproductionshistory.html">LM Productions History</a></li>
+            </ul>
+          </li>
+          <li class="has-sub current">
+            <button type="button" aria-expanded="false">Mission Projects <span class="caret" aria-hidden="true"></span></button>
+            <ul class="submenu">
+              <li><a href="https://www.lmn.org/missions.html">Missions &amp; Applications</a></li>
+              <li><a href="volunteer.html" aria-current="page">Volunteer &amp; Apply Online</a></li>
+              <li class="sep" role="separator"></li>
+              <li><a href="https://www.lmn.org/missions_philippines.html">The Philippines</a></li>
+              <li><a href="https://www.lmn.org/missions_india_south.html">India</a></li>
+              <li><a href="https://www.lmn.org/missions_indiaorphans.html">India Orphans</a></li>
+              <li><a href="https://www.lmn.org/missions_nepal.html">Nepal</a></li>
+              <li><a href="https://www.lmn.org/missions_romania.html">Romania</a></li>
+              <li><a href="https://www.lmn.org/missions_lithuania.html">Lithuania</a></li>
+            </ul>
+          </li>
+          <li><a href="https://www.lmn.org/videoroom.html">Videos</a></li>
+          <li><a href="https://www.lmn.org/">Days of Noah</a></li>
+          <li><a href="https://www.lmn.org/articles.html">Featured Articles</a></li>
+          <li><a href="https://www.lmn.org/catalog/index.php">Store</a></li>
+          <li class="donate"><a href="https://www.lmn.org/catalog/index.php?cPath=744">Donate</a></li>
+          <li><a href="https://www.lmn.org/contactus.html">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
   </header>
 
   <!-- Local nav, developer.apple.com style -->
@@ -55,7 +81,6 @@
     <!-- Hero -->
     <section class="hero">
       <div class="container">
-        <p class="eyebrow">Laymen Ministries</p>
         <h1 class="display">Serve as a missionary</h1>
         <p class="lead">Most of our missionaries teach in our schools in the Philippines. Others help at the orphanage in India or work with our people in Nepal and Eastern Europe. If you're 17 or older and willing to go, we'd like to hear from you.</p>
         <div class="hero-actions">
@@ -104,6 +129,7 @@
             <h3>The Philippines</h3>
             <p>We run five elementary schools and an academy in the Philippines, and that's where most of our missionaries go. Teachers are always needed, especially for English, Bible, math and music. We also have a prison ministry and do evangelism with local churches.</p>
             <div class="tags"><span class="tag">Teaching</span><span class="tag">5 elementary schools</span><span class="tag">1 academy</span><span class="tag">Prison ministry</span><span class="tag">Evangelism</span></div>
+            <a class="link-arrow" href="https://www.lmn.org/missions_philippines.html">Learn more about this project<span class="sr-only"> in the Philippines</span></a>
           </div>
           <a class="btn btn-primary" href="volunteer-apply.html">Apply to teach</a>
         </article>
@@ -112,32 +138,37 @@
           <article class="card place">
             <span class="flag">South Asia</span>
             <h3>India</h3>
-            <p>Our orphanage in South-East India. The children go to a nearby Adventist school, and volunteers help with care, tutoring and daily life at the home.</p>
+            <p>Supporting our local workers and their outreach in South India.</p>
+            <div class="tags"><span class="tag">Outreach</span><span class="tag">Teaching</span></div>
+            <a class="link-arrow" href="https://www.lmn.org/missions_india_south.html">Learn more about this project<span class="sr-only"> in India</span></a>
+          </article>
+          <article class="card place">
+            <span class="flag">South Asia</span>
+            <h3>India Orphans</h3>
+            <p>Our orphanage in South India. The children go to a nearby Adventist school, and volunteers help with care, tutoring and daily life at the home.</p>
             <div class="tags"><span class="tag">Childcare</span><span class="tag">Tutoring</span></div>
+            <a class="link-arrow" href="https://www.lmn.org/missions_indiaorphans.html">Learn more about this project<span class="sr-only"> in India Orphans</span></a>
           </article>
           <article class="card place">
             <span class="flag">South Asia</span>
             <h3>Nepal</h3>
             <p>Supporting our local workers and their outreach.</p>
             <div class="tags"><span class="tag">Outreach</span><span class="tag">Teaching</span></div>
-          </article>
-          <article class="card place">
-            <span class="flag">East Asia</span>
-            <h3>China</h3>
-            <p>Quiet work that often includes teaching English.</p>
-            <div class="tags"><span class="tag">English</span></div>
+            <a class="link-arrow" href="https://www.lmn.org/missions_nepal.html">Learn more about this project<span class="sr-only"> in Nepal</span></a>
           </article>
           <article class="card place">
             <span class="flag">Eastern Europe</span>
             <h3>Romania</h3>
             <p>Since 1994 we've supported ASUP, a prison ministry with volunteers working in prisons across Romania.</p>
             <div class="tags"><span class="tag">Prison ministry</span></div>
+            <a class="link-arrow" href="https://www.lmn.org/missions_romania.html">Learn more about this project<span class="sr-only"> in Romania</span></a>
           </article>
           <article class="card place">
             <span class="flag">Eastern Europe</span>
-            <h3>Ukraine &amp; Lithuania</h3>
+            <h3>Lithuania</h3>
             <p>Bible workers, publishing and support for local churches.</p>
             <div class="tags"><span class="tag">Bible work</span><span class="tag">Publishing</span></div>
+            <a class="link-arrow" href="https://www.lmn.org/missions_lithuania.html">Learn more about this project<span class="sr-only"> in Lithuania</span></a>
           </article>
         </div>
       </div>
@@ -257,7 +288,7 @@
           </details>
           <details>
             <summary>I'd rather use the paper application. Is that still available?</summary>
-            <div class="answer"><p>Yes. The printable PDF applications are still on the <a href="missions.html">Missions &amp; Applications</a> page. Online is faster, though, and we'll have your application right away.</p></div>
+            <div class="answer"><p>Yes. The printable PDF applications are still on the <a href="https://www.lmn.org/missions.html">Missions &amp; Applications</a> page. Online is faster, though, and we'll have your application right away.</p></div>
           </details>
           <details>
             <summary>Who can I talk to before applying?</summary>
@@ -294,8 +325,8 @@
           <ul>
             <li><a href="volunteer.html">Volunteer</a></li>
             <li><a href="volunteer-apply.html">Apply online</a></li>
-            <li><a href="missions.html">Mission projects</a></li>
-            <li><a href="catalog/index.php?cPath=744">Donate to projects</a></li>
+            <li><a href="https://www.lmn.org/missions.html">Mission projects</a></li>
+            <li><a href="https://www.lmn.org/catalog/index.php?cPath=744">Donate to projects</a></li>
           </ul>
         </div>
         <div>
@@ -310,7 +341,7 @@
       </div>
       <div class="legal">
         <span>Copyright © <span data-year></span> Laymen Ministries. A 501(c)(3) non-profit organization.</span>
-        <a href="contactus.html">Contact Us</a>
+        <a href="https://www.lmn.org/contactus.html">Contact Us</a>
       </div>
     </div>
   </footer>
