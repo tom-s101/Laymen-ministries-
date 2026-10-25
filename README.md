@@ -44,7 +44,7 @@ php -S 127.0.0.1:8000
 ## Matching the main site
 
 - **Logo:** `assets/img/lmn-logo.png` is the Laymen Ministries logo, cropped from lmn.org.
-- **Link previews:** when the page is shared in a chat, it shows a compact card with the page title and the "LM" site icon (`assets/img/apple-touch-icon.png`, `favicon-32.png`), like the main site. There's deliberately no large share image. The icons were made from a screenshot, so if you have the original LM favicon file, drop it in at the same names for a sharper icon.
+- **Link previews:** when the page is shared in a chat, it shows a compact card with the page title and the "LM" site icon, like the main site. There's deliberately no large share image. The icon is a clean redraw of the handwritten LM mark from lmn.org (`assets/img/favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`).
 - **Colors and fonts** come from lmn.org: rust logo (`#893600`), gold menu and buttons (`#ffc55f`), warm gray text (`#483f34` / `#6f6a66`), uppercase menu and serif body text. They're all defined at the top of `assets/css/volunteer.css`.
 - **Menu:** the top menu copies the main site (Home, About ▾, Mission Projects ▾, Videos, Days of Noah, Featured Articles, Store, Donate, Contact). Every link goes to `https://www.lmn.org/…`, so a preview copy hosted elsewhere still takes visitors to the live site. Once the page is on lmn.org, those can become relative links if you like.
 - **Days of Noah** currently links to the lmn.org home page because I couldn't confirm the page's address. Update it in the menu on both `volunteer.html` and `volunteer-apply.html`.
