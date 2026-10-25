@@ -110,6 +110,7 @@ function status_class(string $s): string
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
   <title>Volunteer Applications · Admin</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Noto+Serif:wght@400;700&display=swap">
   <link rel="stylesheet" href="../assets/css/volunteer.css">
