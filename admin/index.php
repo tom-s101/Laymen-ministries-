@@ -81,7 +81,7 @@ if ($authed && isset($_GET['export'])) {
     header('Content-Type: text/csv; charset=utf-8');
     header('Content-Disposition: attachment; filename="volunteer-applications-' . date('Y-m-d') . '.csv"');
     $out = fopen('php://output', 'w');
-    $cols = ['id', 'submitted_at', 'status', 'track', 'first_name', 'last_name', 'email', 'phone', 'dob', 'city', 'state', 'country', 'school_pref', 'start_date', 'duration', 'church_name', 'pastor_name'];
+    $cols = ['id', 'submitted_at', 'status', 'track', 'first_name', 'last_name', 'email', 'phone', 'dob', 'city', 'state', 'country', 'start_date', 'duration', 'church_name', 'pastor_name'];
     fputcsv($out, $cols);
     foreach (lmn_all() as $app) {
         $row = [];
@@ -209,7 +209,6 @@ function status_class(string $s): string
           <ul class="notes">
             <li>Age at submission: <?= h($app['meta']['age_at_submission'] ?? '—') ?></li>
             <li>Phone: <a href="tel:<?= h($app['data']['phone']) ?>"><?= h($app['data']['phone']) ?></a></li>
-            <li>School preference: <?= h(lmn_school($app)) ?></li>
             <li>Submitted: <?= h(date('M j, Y g:i A', strtotime($app['submitted_at']))) ?></li>
           </ul>
         </div>
@@ -235,7 +234,7 @@ function status_class(string $s): string
         if ($status !== '' && $a['status'] !== $status) return false;
         if ($track !== '' && ($a['data']['track'] ?? '') !== $track) return false;
         if ($q !== '') {
-            $hay = strtolower($a['id'] . ' ' . lmn_applicant_name($a) . ' ' . ($a['data']['email'] ?? '') . ' ' . lmn_school($a));
+            $hay = strtolower($a['id'] . ' ' . lmn_applicant_name($a) . ' ' . ($a['data']['email'] ?? ''));
             if (strpos($hay, strtolower($q)) === false) return false;
         }
         return true;
@@ -266,13 +265,12 @@ function status_class(string $s): string
       <div class="card empty">No applications<?= $q || $status || $track ? ' match these filters' : ' yet' ?>.</div>
     <?php else: ?>
     <table class="list">
-      <thead><tr><th>Applicant</th><th class="hide-sm">Program</th><th class="hide-sm">School</th><th class="hide-sm">Start</th><th>Status</th><th class="hide-sm">Submitted</th></tr></thead>
+      <thead><tr><th>Applicant</th><th class="hide-sm">Program</th><th class="hide-sm">Start</th><th>Status</th><th class="hide-sm">Submitted</th></tr></thead>
       <tbody>
         <?php foreach ($apps as $a): ?>
         <tr>
           <td><a class="row-link" href="?id=<?= h($a['id']) ?>"><?= h(lmn_applicant_name($a)) ?></a><br><span class="muted" style="font-size:13px;"><?= h($a['data']['email'] ?? '') ?></span></td>
           <td class="hide-sm"><?= h(str_replace(' Missionary', '', $a['data']['track'] ?? '')) ?></td>
-          <td class="hide-sm"><?= h(lmn_school($a)) ?></td>
           <td class="hide-sm"><?= h($a['data']['start_date'] ?? '') ?></td>
           <td><span class="pill <?= status_class($a['status']) ?>"><?= h($a['status']) ?></span></td>
           <td class="hide-sm"><?= h(date('M j, Y', strtotime($a['submitted_at']))) ?></td>
