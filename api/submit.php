@@ -140,8 +140,7 @@ $copy = lmn_render_copy($app);
 $attachment = ['name' => $app['id'] . '.html', 'type' => 'text/html; charset=UTF-8', 'content' => $copy];
 
 $adminIntro = '<p style="font-family:Arial,sans-serif;font-size:14px;">New <strong>' . h($data['track']) . '</strong> application from <strong>'
-    . h($name) . '</strong> (' . h($data['email']) . ').<br>School preference: ' . h(($data['school_pref'] ?? '') ?: 'Not given')
-    . ' &middot; Start: ' . h($data['start_date']) . ' &middot; ' . h($data['duration'])
+    . h($name) . '</strong> (' . h($data['email']) . ').<br>Start: ' . h($data['start_date']) . ' &middot; ' . h($data['duration'])
     . '<br><a href="' . h(rtrim($cfg['admin_url'], '/') . '/?id=' . $app['id']) . '">Open in the review dashboard</a></p><hr>';
 
 foreach ((array) $cfg['admin_emails'] as $to) {

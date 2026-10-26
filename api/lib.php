@@ -87,11 +87,6 @@ function lmn_applicant_name(array $app): string
     return trim(($d['first_name'] ?? '') . ' ' . ($d['last_name'] ?? ''));
 }
 
-function lmn_school(array $app): string
-{
-    return ($app['data']['school_pref'] ?? '') ?: '—';
-}
-
 /**
  * The "digital copy" of an application: a self-contained HTML document that
  * mirrors the paper form. Used in emails, the admin view and for printing to PDF.

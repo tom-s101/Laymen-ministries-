@@ -255,7 +255,6 @@
     var d = collectAll();
     var set = function (id, v) { document.getElementById(id).textContent = v || '—'; };
     set('sum-track', d.track ? d.track.replace(' Missionary', '') : '');
-    set('sum-school', d.school_pref);
     set('sum-start', d.start_date ? new Date(d.start_date + 'T00:00:00').toLocaleDateString(undefined, { month: 'short', year: 'numeric' }) : '');
     set('sum-duration', d.duration);
     set('sum-name', [d.first_name, d.last_name].filter(Boolean).join(' '));
