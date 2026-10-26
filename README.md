@@ -4,7 +4,7 @@ A modern volunteer page and online application for [lmn.org](https://www.lmn.org
 
 | Page | What it does |
 | --- | --- |
-| `volunteer.html` | What it's like to volunteer, where you can serve, the two programs, how the process works, guidelines, FAQ |
+| `volunteer.html` | What it's like to volunteer, serving in the Philippines, the two programs, how the process works, guidelines, FAQ |
 | `volunteer-apply.html` | Step-by-step application form, styled like an online checkout: progress bar, autosave, review screen and typed e-signature |
 | `api/submit.php` | Receives applications, checks the required answers, saves them and emails the team and the applicant |
 | `admin/` | Password-protected dashboard to review applications, set a status, add notes, print or save as PDF, and export to CSV |
@@ -55,5 +55,5 @@ I couldn't reach lmn.org while building this, so the text was drafted from what'
 
 - **Guidelines** (`volunteer.html#guidelines`): lifestyle, dress, relationships, vegetarian meals, support raising
 - **FAQ answers**: costs, timelines, ages, the "apply 3–4 months ahead" advice
-- **Project descriptions**: the six projects match the main site's "Our Missions" list. The India, Nepal and Lithuania blurbs are short placeholders.
+- **Philippines details**: the page says all volunteer missionaries serve in the Philippines, at five elementary schools and one academy. Check the short descriptions of the elementary schools and the academy.
 - **Application questions**: compare with the paper Student and Long-Term applications and add or remove fields as needed. Any field added to the form automatically appears in the review step, the emails, the admin view and the PDF copy.
