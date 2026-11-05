@@ -6,7 +6,6 @@
   <title>LAYMEN MINISTRIES - VOLUNTEER APPLICATION</title>
   <meta name="description" content="Apply online to serve as a student or long-term missionary teacher in the Philippines with Laymen Ministries.">
   <meta name="theme-color" content="#ffffff">
-  <!-- Link previews: title + site icon only (no og:image), so chat apps show a compact card like lmn.org -->
   <meta property="og:site_name" content="Laymen Ministries">
   <meta property="og:title" content="LAYMEN MINISTRIES - VOLUNTEER APPLICATION">
   <meta property="og:type" content="website">
@@ -31,7 +30,6 @@
         <svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true"><path d="M1 2h20M1 8h20M1 14h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
     </div>
-    <!-- Links go to the live lmn.org site so this page can be previewed on its own. -->
     <nav class="site-nav" id="site-nav" aria-label="Main">
       <div class="container">
         <ul class="menu">
@@ -81,10 +79,7 @@
 
         <form class="form-card" id="apply-form" novalidate>
           <div class="form-alert" id="form-alert" role="alert"></div>
-          <!-- Honeypot for spam bots -->
-          <div class="hp" aria-hidden="true"><label>Leave blank <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
 
-          <!-- STEP 1: Program -->
           <section class="form-step" data-step="Program" aria-labelledby="s1">
             <h2 id="s1">Choose your program</h2>
             <p class="step-intro">Tell us how you'd like to serve in the Philippines.</p>
@@ -140,7 +135,6 @@
             </fieldset>
           </section>
 
-          <!-- STEP 2: About you -->
           <section class="form-step" data-step="About you" aria-labelledby="s2">
             <h2 id="s2">About you</h2>
             <p class="step-intro">Enter your name the way it appears on your passport.</p>
@@ -236,7 +230,6 @@
             </fieldset>
           </section>
 
-          <!-- STEP 3: Background -->
           <section class="form-step" data-step="Background" aria-labelledby="s3">
             <h2 id="s3">Education &amp; experience</h2>
             <p class="step-intro">No degree needed. This helps us place you where your gifts fit best.</p>
@@ -310,7 +303,6 @@
             </fieldset>
           </section>
 
-          <!-- STEP 4: Faith -->
           <section class="form-step" data-step="Faith" aria-labelledby="s4">
             <h2 id="s4">Your faith journey</h2>
             <p class="step-intro">There are no wrong answers here. We just want to get to know you.</p>
@@ -358,7 +350,6 @@
             </fieldset>
           </section>
 
-          <!-- STEP 5: Health & safety -->
           <section class="form-step" data-step="Health" aria-labelledby="s5">
             <h2 id="s5">Health &amp; safety</h2>
             <p class="step-intro">This is kept confidential and helps us place and care for you well.</p>
@@ -438,7 +429,6 @@
             </fieldset>
           </section>
 
-          <!-- STEP 6: References -->
           <section class="form-step" data-step="References" aria-labelledby="s6">
             <h2 id="s6">References</h2>
             <p class="step-intro">We'll contact them for you, so there's nothing to print or mail. Please don't list relatives.</p>
@@ -480,7 +470,6 @@
             </div>
           </section>
 
-          <!-- STEP 7: Review & submit -->
           <section class="form-step" data-step="Review" aria-labelledby="s7">
             <h2 id="s7">Review &amp; submit</h2>
             <p class="step-intro">Check your answers. Select "Edit" to change anything.</p>
@@ -499,16 +488,14 @@
             </fieldset>
           </section>
 
-          <!-- Success -->
           <section class="form-step" id="success-step" aria-live="polite">
             <div class="success">
               <div class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
               <h2>Application received</h2>
-              <p>Thank you for your willingness to serve. We've emailed a copy to you and our team will be in touch within 1–2 weeks.</p>
+              <p>Thank you for your willingness to serve. Our team will be in touch within 1–2 weeks.</p>
               <div class="ref">Reference: <span id="ref-id"></span></div>
               <div class="hero-actions" style="margin-top:0;">
                 <a class="btn btn-primary" href="volunteer.html">Back to Volunteer</a>
-                <button type="button" class="btn btn-ghost" id="print-copy">Print a copy</button>
               </div>
             </div>
           </section>

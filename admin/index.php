@@ -1,103 +1,47 @@
 <?php
-// Volunteer application review dashboard.
-declare(strict_types=1);
-
 require __DIR__ . '/../api/lib.php';
 
 session_set_cookie_params(['httponly' => true, 'samesite' => 'Strict', 'secure' => !empty($_SERVER['HTTPS'])]);
 session_start();
-header('X-Frame-Options: DENY');
-header('X-Content-Type-Options: nosniff');
-header('Cache-Control: no-store');
 
 $cfg = lmn_config();
-$self = strtok($_SERVER['REQUEST_URI'] ?? 'index.php', '?');
-
-if (empty($_SESSION['csrf'])) {
-    $_SESSION['csrf'] = bin2hex(random_bytes(16));
-}
-$csrf = $_SESSION['csrf'];
-
-function check_csrf(): void
-{
-    if (!hash_equals($_SESSION['csrf'] ?? '', $_POST['csrf'] ?? '')) {
-        http_response_code(400);
-        exit('Invalid form token. Go back and try again.');
-    }
-}
-
-// ---------- Auth ----------
+$self = strtok($_SERVER['REQUEST_URI'], '?');
 $error = '';
+
 if (isset($_GET['logout'])) {
     session_destroy();
     header("Location: $self");
     exit;
 }
-if (($_POST['action'] ?? '') === 'login') {
-    check_csrf();
-    usleep(300_000);
-    if ($cfg['admin_password_hash'] !== '' && password_verify($_POST['password'] ?? '', $cfg['admin_password_hash'])) {
+if (isset($_POST['password'])) {
+    if ($cfg['admin_password_hash'] && password_verify($_POST['password'], $cfg['admin_password_hash'])) {
         session_regenerate_id(true);
         $_SESSION['admin'] = true;
-        header('Location: ' . $self . (isset($_GET['id']) ? '?id=' . urlencode($_GET['id']) : ''));
+        header("Location: {$_SERVER['REQUEST_URI']}");
         exit;
     }
     $error = 'Incorrect password.';
 }
 $authed = !empty($_SESSION['admin']);
 
-// ---------- Actions ----------
-if ($authed && ($_POST['action'] ?? '') === 'update') {
-    check_csrf();
-    $app = lmn_load($_POST['id'] ?? '');
-    if ($app) {
-        if (in_array($_POST['status'] ?? '', LMN_STATUSES, true)) {
-            if ($app['status'] !== $_POST['status']) {
-                $app['notes'][] = ['at' => date('c'), 'text' => 'Status changed to ' . $_POST['status'], 'system' => true];
-            }
-            $app['status'] = $_POST['status'];
-        }
-        $note = trim((string) ($_POST['note'] ?? ''));
-        if ($note !== '') {
-            $app['notes'][] = ['at' => date('c'), 'text' => mb_substr($note, 0, 4000)];
-        }
-        lmn_save($app);
+if ($authed && isset($_POST['id']) && ($app = lmn_load($_POST['id']))) {
+    if (in_array($_POST['status'], LMN_STATUSES) && $app['status'] !== $_POST['status']) {
+        $app['notes'][] = ['at' => date('c'), 'text' => 'Status changed to ' . $_POST['status'], 'system' => true];
+        $app['status'] = $_POST['status'];
     }
-    header('Location: ' . $self . '?id=' . urlencode($_POST['id'] ?? ''));
+    if (trim($_POST['note']) !== '') {
+        $app['notes'][] = ['at' => date('c'), 'text' => trim($_POST['note'])];
+    }
+    lmn_save($app);
+    header("Location: $self?id={$app['id']}");
     exit;
 }
 
-if ($authed && isset($_GET['id'], $_GET['print'])) {
-    $app = lmn_load($_GET['id']);
-    if (!$app) {
-        http_response_code(404);
-        exit('Not found');
-    }
-    echo str_replace('</body>', '<script>window.onload=function(){window.print()}</script></body>', lmn_render_copy($app));
-    exit;
+if ($authed && isset($_GET['print']) && ($app = lmn_load($_GET['id']))) {
+    exit(str_replace('</body>', '<script>window.print()</script></body>', lmn_render_copy($app)));
 }
 
-if ($authed && isset($_GET['export'])) {
-    header('Content-Type: text/csv; charset=utf-8');
-    header('Content-Disposition: attachment; filename="volunteer-applications-' . date('Y-m-d') . '.csv"');
-    $out = fopen('php://output', 'w');
-    $cols = ['id', 'submitted_at', 'status', 'track', 'first_name', 'last_name', 'email', 'phone', 'dob', 'city', 'state', 'country', 'start_date', 'duration', 'church_name', 'pastor_name'];
-    fputcsv($out, $cols);
-    foreach (lmn_all() as $app) {
-        $row = [];
-        foreach ($cols as $c) {
-            $v = $app[$c] ?? $app['data'][$c] ?? '';
-            $v = is_array($v) ? implode('; ', $v) : (string) $v;
-            // Neutralize spreadsheet formula injection.
-            $row[] = preg_match('/^[=+\-@]/', $v) ? "'" . $v : $v;
-        }
-        fputcsv($out, $row);
-    }
-    exit;
-}
-
-// ---------- Views ----------
-function status_class(string $s): string
+function status_class($s)
 {
     return match ($s) {
         'New' => 'new', 'Accepted' => 'ok', 'Declined', 'Withdrawn' => 'muted', default => 'progress',
@@ -119,9 +63,6 @@ function status_class(string $s): string
     .admin-wrap { padding: 32px 0 80px; }
     .admin-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
     .admin-top h1 { font-size: 32px; }
-    .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
-    .filters input, .filters select { font: inherit; font-size: 15px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); color: var(--text); }
-    .filters input { flex: 1; min-width: 200px; }
     .counts { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
     .counts a { font-size: 13px; padding: 6px 12px; border-radius: 980px; background: var(--surface); color: var(--text-muted); border: 1px solid var(--border-soft); }
     .counts a.on { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
@@ -168,8 +109,6 @@ function status_class(string $s): string
       <?php endif; ?>
       <?php if ($error): ?><div class="form-alert show"><?= h($error) ?></div><?php endif; ?>
       <form method="post">
-        <input type="hidden" name="action" value="login">
-        <input type="hidden" name="csrf" value="<?= h($csrf) ?>">
         <div class="field" style="margin-bottom:16px;"><input type="password" id="password" name="password" placeholder=" " required autofocus><label for="password">Password</label></div>
         <button class="btn btn-primary" style="width:100%;">Sign in</button>
       </form>
@@ -181,7 +120,7 @@ function status_class(string $s): string
         <a href="<?= h($self) ?>" style="font-size:14px;">‹ All applications</a>
         <h1><?= h(lmn_applicant_name($app)) ?></h1>
         <span class="pill <?= status_class($app['status']) ?>"><?= h($app['status']) ?></span>
-        <span class="muted" style="font-size:14px;margin-left:8px;"><?= h($app['id']) ?></span>
+        <span class="muted" style="font-size:14px;margin-left:8px;"><?= h($app['id']) ?> · Age <?= h($app['age'] ?? '—') ?></span>
       </div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
         <a class="btn btn-ghost" href="mailto:<?= h($app['data']['email']) ?>">Email applicant</a>
@@ -193,8 +132,6 @@ function status_class(string $s): string
       <aside class="side">
         <form class="card" method="post">
           <h3 style="font-size:17px;">Review</h3>
-          <input type="hidden" name="action" value="update">
-          <input type="hidden" name="csrf" value="<?= h($csrf) ?>">
           <input type="hidden" name="id" value="<?= h($app['id']) ?>">
           <label for="status">Status</label>
           <select id="status" name="status">
@@ -204,14 +141,6 @@ function status_class(string $s): string
           <textarea id="note" name="note" placeholder="Interview notes, reference feedback…"></textarea>
           <button class="btn btn-primary btn-sm" style="margin-top:12px;">Save</button>
         </form>
-        <div class="card">
-          <h3 style="font-size:17px;">Quick facts</h3>
-          <ul class="notes">
-            <li>Age at submission: <?= h($app['meta']['age_at_submission'] ?? '—') ?></li>
-            <li>Phone: <a href="tel:<?= h($app['data']['phone']) ?>"><?= h($app['data']['phone']) ?></a></li>
-            <li>Submitted: <?= h(date('M j, Y g:i A', strtotime($app['submitted_at']))) ?></li>
-          </ul>
-        </div>
         <div class="card">
           <h3 style="font-size:17px;">History</h3>
           <?php if (!$app['notes']): ?><p class="muted" style="font-size:14px;">No notes yet.</p><?php endif; ?>
@@ -226,23 +155,12 @@ function status_class(string $s): string
 
 <?php else:
     $all = lmn_all();
-    $q = trim((string) ($_GET['q'] ?? ''));
-    $status = (string) ($_GET['status'] ?? '');
-    $track = (string) ($_GET['track'] ?? '');
+    $status = $_GET['status'] ?? '';
     $counts = array_count_values(array_column($all, 'status'));
-    $apps = array_filter($all, function ($a) use ($q, $status, $track) {
-        if ($status !== '' && $a['status'] !== $status) return false;
-        if ($track !== '' && ($a['data']['track'] ?? '') !== $track) return false;
-        if ($q !== '') {
-            $hay = strtolower($a['id'] . ' ' . lmn_applicant_name($a) . ' ' . ($a['data']['email'] ?? ''));
-            if (strpos($hay, strtolower($q)) === false) return false;
-        }
-        return true;
-    });
+    $apps = $status ? array_filter($all, fn($a) => $a['status'] === $status) : $all;
 ?>
     <div class="admin-top">
       <h1>Volunteer Applications</h1>
-      <a class="btn btn-ghost btn-sm" href="?export=csv">Export CSV</a>
     </div>
     <div class="counts">
       <a href="<?= h($self) ?>" class="<?= $status === '' ? 'on' : '' ?>">All (<?= count($all) ?>)</a>
@@ -250,28 +168,18 @@ function status_class(string $s): string
         <a href="?status=<?= urlencode($s) ?>" class="<?= $status === $s ? 'on' : '' ?>"><?= h($s) ?> (<?= (int) $counts[$s] ?>)</a>
       <?php endforeach; ?>
     </div>
-    <form class="filters" method="get">
-      <?php if ($status !== ''): ?><input type="hidden" name="status" value="<?= h($status) ?>"><?php endif; ?>
-      <input type="search" name="q" value="<?= h($q) ?>" placeholder="Search name, email or reference">
-      <select name="track" onchange="this.form.submit()">
-        <option value="">All programs</option>
-        <option<?= $track === 'Student Missionary' ? ' selected' : '' ?>>Student Missionary</option>
-        <option<?= $track === 'Long-Term Missionary' ? ' selected' : '' ?>>Long-Term Missionary</option>
-      </select>
-      <button class="btn btn-primary btn-sm">Search</button>
-    </form>
 
     <?php if (!$apps): ?>
-      <div class="card empty">No applications<?= $q || $status || $track ? ' match these filters' : ' yet' ?>.</div>
+      <div class="card empty">No applications<?= $status ? ' with this status' : ' yet' ?>.</div>
     <?php else: ?>
     <table class="list">
       <thead><tr><th>Applicant</th><th class="hide-sm">Program</th><th class="hide-sm">Start</th><th>Status</th><th class="hide-sm">Submitted</th></tr></thead>
       <tbody>
         <?php foreach ($apps as $a): ?>
         <tr>
-          <td><a class="row-link" href="?id=<?= h($a['id']) ?>"><?= h(lmn_applicant_name($a)) ?></a><br><span class="muted" style="font-size:13px;"><?= h($a['data']['email'] ?? '') ?></span></td>
-          <td class="hide-sm"><?= h(str_replace(' Missionary', '', $a['data']['track'] ?? '')) ?></td>
-          <td class="hide-sm"><?= h($a['data']['start_date'] ?? '') ?></td>
+          <td><a class="row-link" href="?id=<?= h($a['id']) ?>"><?= h(lmn_applicant_name($a)) ?></a><br><span class="muted" style="font-size:13px;"><?= h($a['data']['email']) ?></span></td>
+          <td class="hide-sm"><?= h(str_replace(' Missionary', '', $a['data']['track'])) ?></td>
+          <td class="hide-sm"><?= h($a['data']['start_date']) ?></td>
           <td><span class="pill <?= status_class($a['status']) ?>"><?= h($a['status']) ?></span></td>
           <td class="hide-sm"><?= h(date('M j, Y', strtotime($a['submitted_at']))) ?></td>
         </tr>

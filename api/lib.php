@@ -1,97 +1,53 @@
 <?php
-// Shared helpers for the volunteer application backend.
-
 const LMN_STATUSES = ['New', 'Reviewing', 'References requested', 'Interview scheduled', 'Accepted', 'Declined', 'Withdrawn'];
 
-function lmn_config(): array
+function lmn_config()
 {
     static $config;
-    if ($config === null) {
-        $file = __DIR__ . '/config.php';
-        if (!is_file($file)) {
-            $file = __DIR__ . '/config.sample.php';
-        }
-        $config = require $file;
-    }
-    return $config;
+    return $config ??= require __DIR__ . '/config.php';
 }
 
-function lmn_storage_dir(): string
+function lmn_storage_dir()
 {
     $dir = rtrim(lmn_config()['storage_dir'], '/');
-    if (!is_dir($dir)) {
-        mkdir($dir, 0750, true);
-    }
+    is_dir($dir) || mkdir($dir, 0750, true);
     return $dir;
 }
 
-function h($s): string
+function h($s)
 {
     return htmlspecialchars((string) $s, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
-function lmn_valid_id(string $id): bool
+function lmn_new_id()
 {
-    return (bool) preg_match('/^LMN-\d{4}-[A-Z0-9]{6}$/', $id);
+    return 'LMN-' . date('Y') . '-' . strtoupper(bin2hex(random_bytes(3)));
 }
 
-function lmn_new_id(): string
+function lmn_load($id)
 {
-    $alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-    do {
-        $suffix = '';
-        for ($i = 0; $i < 6; $i++) {
-            $suffix .= $alphabet[random_int(0, strlen($alphabet) - 1)];
-        }
-        $id = 'LMN-' . date('Y') . '-' . $suffix;
-    } while (is_file(lmn_storage_dir() . "/$id.json"));
-    return $id;
-}
-
-function lmn_load(string $id): ?array
-{
-    if (!lmn_valid_id($id)) {
-        return null;
-    }
     $file = lmn_storage_dir() . "/$id.json";
-    if (!is_file($file)) {
-        return null;
-    }
-    return json_decode(file_get_contents($file), true) ?: null;
+    return preg_match('/^LMN-\d{4}-[A-Z0-9]{6}$/', $id) && is_file($file) ? json_decode(file_get_contents($file), true) : null;
 }
 
-function lmn_save(array $app): void
+function lmn_save($app)
 {
-    $file = lmn_storage_dir() . '/' . $app['id'] . '.json';
-    file_put_contents($file, json_encode($app, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES), LOCK_EX);
-    @chmod($file, 0640);
+    file_put_contents(lmn_storage_dir() . "/{$app['id']}.json", json_encode($app, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES), LOCK_EX);
 }
 
-/** @return array<int, array> newest first */
-function lmn_all(): array
+function lmn_all()
 {
-    $apps = [];
-    foreach (glob(lmn_storage_dir() . '/LMN-*.json') ?: [] as $file) {
-        $app = json_decode(file_get_contents($file), true);
-        if ($app) {
-            $apps[] = $app;
-        }
-    }
+    $apps = array_map(fn($f) => json_decode(file_get_contents($f), true), glob(lmn_storage_dir() . '/LMN-*.json'));
     usort($apps, fn($a, $b) => strcmp($b['submitted_at'], $a['submitted_at']));
     return $apps;
 }
 
-function lmn_applicant_name(array $app): string
+function lmn_applicant_name($app)
 {
-    $d = $app['data'];
-    return trim(($d['first_name'] ?? '') . ' ' . ($d['last_name'] ?? ''));
+    return trim(($app['data']['first_name'] ?? '') . ' ' . ($app['data']['last_name'] ?? ''));
 }
 
-/**
- * The "digital copy" of an application: a self-contained HTML document that
- * mirrors the paper form. Used in emails, the admin view and for printing to PDF.
- */
-function lmn_render_copy(array $app, bool $standalone = true): string
+function lmn_render_copy($app, $standalone = true)
 {
     $d = $app['data'];
     $submitted = date('F j, Y \a\t g:i A T', strtotime($app['submitted_at']));
@@ -126,7 +82,7 @@ function lmn_render_copy(array $app, bool $standalone = true): string
         . '<h2 style="font-size:16px;margin:28px 0 6px;color:#893600;">Agreement &amp; signature</h2>'
         . '<ul style="list-style:none;padding:0;margin:0 0 12px;font-size:14px;line-height:1.8;">' . $agreements . '</ul>'
         . '<p style="font-size:14px;margin:0;">Signed electronically: <strong style="font-family:Georgia,serif;font-size:18px;font-style:italic;">' . h($d['signature'] ?? '') . '</strong></p>'
-        . '<p style="font-size:12px;color:#6e6e73;margin-top:4px;">Date: ' . h($d['signed_date'] ?? '') . ' &middot; IP ' . h($app['meta']['ip'] ?? '') . '</p>'
+        . '<p style="font-size:12px;color:#6e6e73;margin-top:4px;">Date: ' . h($d['signed_date'] ?? '') . '</p>'
         . '<p style="font-size:11px;color:#86868b;margin-top:28px;border-top:1px solid #e8e8ed;padding-top:10px;">Laymen Ministries &middot; 414 Zapada Rd., St. Maries, ID 83861 &middot; (208) 245-5388 &middot; office@lmn.org</p>'
         . '</div>';
 
@@ -139,24 +95,18 @@ function lmn_render_copy(array $app, bool $standalone = true): string
         . $body . '</body></html>';
 }
 
-/** Send an HTML email, optionally with one attachment. Uses PHP mail(). */
-function lmn_mail(string $to, string $subject, string $html, ?array $attachment = null, ?string $replyTo = null): bool
+function lmn_mail($to, $subject, $html, $attachment = null, $replyTo = null)
 {
-    $cfg = lmn_config();
-    $boundary = 'lmn_' . bin2hex(random_bytes(12));
-    $headers = [
-        'From: ' . $cfg['mail_from'],
-        'MIME-Version: 1.0',
-    ];
-    if ($replyTo && filter_var($replyTo, FILTER_VALIDATE_EMAIL)) {
+    $headers = ['From: ' . lmn_config()['mail_from'], 'MIME-Version: 1.0'];
+    if ($replyTo) {
         $headers[] = 'Reply-To: ' . $replyTo;
     }
-
     if ($attachment) {
+        $boundary = 'lmn_' . bin2hex(random_bytes(12));
         $headers[] = 'Content-Type: multipart/mixed; boundary="' . $boundary . '"';
         $body = "--$boundary\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n"
             . chunk_split(base64_encode($html))
-            . "--$boundary\r\nContent-Type: {$attachment['type']}; name=\"{$attachment['name']}\"\r\n"
+            . "--$boundary\r\nContent-Type: text/html; charset=UTF-8; name=\"{$attachment['name']}\"\r\n"
             . "Content-Disposition: attachment; filename=\"{$attachment['name']}\"\r\nContent-Transfer-Encoding: base64\r\n\r\n"
             . chunk_split(base64_encode($attachment['content']))
             . "--$boundary--";
@@ -165,7 +115,5 @@ function lmn_mail(string $to, string $subject, string $html, ?array $attachment 
         $headers[] = 'Content-Transfer-Encoding: base64';
         $body = chunk_split(base64_encode($html));
     }
-
-    $subject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
-    return @mail($to, $subject, $body, implode("\r\n", $headers));
+    @mail($to, '=?UTF-8?B?' . base64_encode($subject) . '?=', $body, implode("\r\n", $headers));
 }
