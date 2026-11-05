@@ -1,4 +1,3 @@
 api/config.php
 storage/applications/*
 !storage/applications/.gitkeep
-.DS_Store

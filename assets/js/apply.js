@@ -1,8 +1,4 @@
-// Volunteer application: multi-step form with validation, autosave and review.
 (function () {
-  'use strict';
-
-  var SUBMIT_URL = 'api/submit.php';
   var DRAFT_KEY = 'lmn-volunteer-draft-v1';
 
   var form = document.getElementById('apply-form');
@@ -17,12 +13,6 @@
   var current = 0;
   var furthest = 0;
 
-  // ---------- Storage (wrapped: may be unavailable in private mode) ----------
-  function store(key, val) { try { localStorage.setItem(key, val); } catch (e) {} }
-  function load(key) { try { return localStorage.getItem(key); } catch (e) { return null; } }
-  function drop(key) { try { localStorage.removeItem(key); } catch (e) {} }
-
-  // ---------- Stepper ----------
   steps.forEach(function (step, i) {
     var li = document.createElement('li');
     var b = document.createElement('button');
@@ -44,7 +34,7 @@
 
   function go(i, opts) {
     steps[current].classList.remove('active');
-    current = Math.max(0, Math.min(i, steps.length - 1));
+    current = i;
     furthest = Math.max(furthest, current);
     steps[current].classList.add('active');
     prevBtn.style.visibility = current === 0 ? 'hidden' : 'visible';
@@ -60,17 +50,16 @@
     if (!opts || !opts.noScroll) {
       window.scrollTo({ top: form.getBoundingClientRect().top + window.scrollY - 140, behavior: 'smooth' });
       var h = steps[current].querySelector('h2');
-      if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+      h.setAttribute('tabindex', '-1');
+      h.focus({ preventScroll: true });
     }
   }
 
-  // ---------- Conditional fields: data-show-if="name=value|name2=value2" ----------
   function valuesOf(name) {
     var els = form.querySelectorAll('[name="' + name + '"]');
     var out = [];
     Array.prototype.forEach.call(els, function (el) {
-      if ((el.type === 'radio' || el.type === 'checkbox')) { if (el.checked) out.push(el.value); }
-      else if (el.value) out.push(el.value);
+      if (el.type === 'radio' || el.type === 'checkbox' ? el.checked : el.value) out.push(el.value);
     });
     return out;
   }
@@ -88,11 +77,10 @@
     form.querySelectorAll('[data-guardian-required]').forEach(function (el) { el.required = minor; });
   }
 
-  function ageOn(dobStr, onDate) {
-    if (!dobStr) return null;
+  function ageOn(dobStr) {
     var dob = new Date(dobStr + 'T00:00:00');
-    if (isNaN(dob)) return null;
-    var d = onDate || new Date();
+    if (!dobStr || isNaN(dob)) return null;
+    var d = new Date();
     var age = d.getFullYear() - dob.getFullYear();
     var m = d.getMonth() - dob.getMonth();
     if (m < 0 || (m === 0 && d.getDate() < dob.getDate())) age--;
@@ -106,15 +94,14 @@
 
   function isHidden(el) { return !!el.closest('.hidden'); }
 
-  // ---------- Validation ----------
   function setFieldError(field, msg) {
     var wrap = field.closest('.field');
-    if (!wrap) return;
-    wrap.classList.toggle('invalid', !!msg);
     var em = wrap.querySelector('.error-msg');
-    if (em && em.dataset.default === undefined) em.dataset.default = em.textContent;
-    if (em && msg && typeof msg === 'string') em.textContent = msg;
-    else if (em && em.dataset.default) em.textContent = em.dataset.default;
+    wrap.classList.toggle('invalid', !!msg);
+    if (em) {
+      em.dataset.default = em.dataset.default || em.textContent;
+      em.textContent = typeof msg === 'string' && msg ? msg : em.dataset.default;
+    }
     field.setAttribute('aria-invalid', msg ? 'true' : 'false');
   }
 
@@ -123,10 +110,9 @@
     if (name === 'dob' && el.value) {
       var age = ageOn(el.value);
       var track = valuesOf('track')[0];
-      if (age === null || age < 0 || age > 110) return 'Enter a valid date of birth.';
+      if (age === null || age < 0) return 'Enter a valid date of birth.';
       if (track === 'Student Missionary' && age < 17) return 'Student missionaries must be at least 17.';
       if (track === 'Long-Term Missionary' && age < 18) return 'Long-term missionaries must be 18 or older. Consider the Student program.';
-      if (age < 16) return 'Applicants must be at least 17.';
     }
     if (name === 'start_date' && el.value) {
       var d = new Date(el.value + 'T00:00:00');
@@ -143,10 +129,8 @@
   }
 
   function validateField(el) {
-    if (isHidden(el) || el.type === 'radio' || el.type === 'checkbox' || el.readOnly) return true;
-    var msg = '';
-    if (!el.checkValidity()) msg = true;
-    if (!msg) msg = customError(el);
+    if (isHidden(el) || el.type === 'radio' || el.type === 'checkbox') return true;
+    var msg = !el.checkValidity() || customError(el);
     setFieldError(el, msg);
     return !msg;
   }
@@ -154,7 +138,6 @@
   function validateStep(step) {
     var firstBad = null;
     step.querySelectorAll('input, select, textarea').forEach(function (el) {
-      if (!el.name || el.name === 'website') return;
       if (el.type === 'checkbox' && el.closest('.agree')) {
         var ok = isHidden(el) || !el.required || el.checked;
         el.closest('.agree').classList.toggle('invalid', !ok);
@@ -181,28 +164,23 @@
   function showAlert(msg) { alertBox.textContent = msg; alertBox.classList.add('show'); }
   function hideAlert() { alertBox.classList.remove('show'); }
 
-  // ---------- Data ----------
   function labelFor(el) {
     if (el.type === 'radio' || el.type === 'checkbox') {
       var g = el.closest('.choice-group');
       if (g && g.dataset.label) return g.dataset.label;
       if (g && g.querySelector('.label')) return g.querySelector('.label').textContent.trim();
-      var fs = el.closest('fieldset');
-      return fs ? fs.querySelector('legend').textContent.trim() : el.name;
+      return el.closest('fieldset').querySelector('legend').textContent.trim();
     }
-    var l = form.querySelector('label[for="' + el.id + '"]');
-    if (!l) return el.name;
-    var clone = l.cloneNode(true);
+    var clone = form.querySelector('label[for="' + el.id + '"]').cloneNode(true);
     clone.querySelectorAll('.optional').forEach(function (o) { o.remove(); });
     var group = el.closest('[data-prefix]');
     return (group ? group.dataset.prefix + ' — ' : '') + clone.textContent.trim();
   }
 
-  // Raw values for every named field (used for drafts).
   function collectAll() {
     var data = {};
     Array.prototype.forEach.call(form.elements, function (el) {
-      if (!el.name || el.name === 'website') return;
+      if (!el.name) return;
       if (el.type === 'checkbox' && !el.closest('.agree')) {
         data[el.name] = data[el.name] || [];
         if (el.checked) data[el.name].push(el.value);
@@ -217,7 +195,6 @@
     return data;
   }
 
-  // Labelled, visible answers grouped by step: this becomes the "digital copy".
   function collectSections() {
     return steps.slice(0, -1).map(function (step, i) {
       var seen = {};
@@ -227,7 +204,7 @@
         seen[el.name] = true;
         var v = valuesOf(el.name).join(', ');
         if (el.type === 'date' && v) v = new Date(v + 'T00:00:00').toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
-        if (v) fields.push({ name: el.name, label: labelFor(el), value: v });
+        if (v) fields.push({ label: labelFor(el), value: v });
       });
       return { step: i, title: step.querySelector('h2').textContent, fields: fields };
     });
@@ -250,7 +227,6 @@
     });
   }
 
-  // ---------- Summary aside ----------
   function updateSummary() {
     var d = collectAll();
     var set = function (id, v) { document.getElementById(id).textContent = v || '—'; };
@@ -262,35 +238,32 @@
     document.getElementById('progress-bar').style.width = pct + '%';
   }
 
-  // ---------- Drafts ----------
   var saveTimer;
   function saveDraft() {
     var d = collectAll();
     delete d.signature;
-    store(DRAFT_KEY, JSON.stringify({ data: d, step: current, furthest: furthest, saved: Date.now() }));
+    localStorage.setItem(DRAFT_KEY, JSON.stringify({ data: d, step: current, furthest: furthest }));
     saveState.textContent = 'Saved on this device';
   }
 
   function restoreDraft() {
-    var raw = load(DRAFT_KEY);
+    var raw = localStorage.getItem(DRAFT_KEY);
     if (!raw) return false;
-    var draft;
-    try { draft = JSON.parse(raw); } catch (e) { return false; }
-    var d = draft.data || {};
+    var draft = JSON.parse(raw);
+    var d = draft.data;
     Object.keys(d).forEach(function (name) {
       var els = form.querySelectorAll('[name="' + name + '"]');
       Array.prototype.forEach.call(els, function (el) {
         if (el.type === 'checkbox' && !el.closest('.agree')) el.checked = (d[name] || []).indexOf(el.value) !== -1;
         else if (el.type === 'checkbox') el.checked = !!d[name];
         else if (el.type === 'radio') el.checked = el.value === d[name];
-        else if (!el.readOnly) el.value = d[name];
+        else el.value = d[name];
       });
     });
-    furthest = Math.min(draft.furthest || 0, steps.length - 1);
-    return Math.min(draft.step || 0, steps.length - 1);
+    furthest = draft.furthest;
+    return draft.step;
   }
 
-  // ---------- Events ----------
   form.addEventListener('input', function (e) {
     var el = e.target;
     if (el.closest('.field') && el.closest('.field').classList.contains('invalid')) validateField(el);
@@ -323,33 +296,21 @@
 
   document.getElementById('clear-draft').addEventListener('click', function () {
     if (!confirm('Clear everything you have entered on this device?')) return;
-    drop(DRAFT_KEY);
+    localStorage.removeItem(DRAFT_KEY);
     window.location.href = window.location.pathname;
   });
 
-  // ---------- Submit ----------
   function submit() {
     hideAlert();
     nextBtn.disabled = true;
     nextBtn.textContent = 'Submitting…';
-    var payload = {
-      data: collectAll(),
-      sections: collectSections(),
-      website: form.elements.website.value,
-      submitted_at_local: new Date().toString()
-    };
-    fetch(SUBMIT_URL, {
+    fetch('api/submit.php', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(payload)
-    }).then(function (res) {
-      return res.json().catch(function () { return { ok: false }; }).then(function (body) {
-        if (!res.ok || !body.ok) throw new Error(body.error || 'Server error');
-        return body;
-      });
-    }).then(function (body) {
-      lastCopy = document.getElementById('review').innerHTML;
-      drop(DRAFT_KEY);
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ data: collectAll(), sections: collectSections() })
+    }).then(function (res) { return res.json(); }).then(function (body) {
+      if (!body.ok) throw new Error(body.error);
+      localStorage.removeItem(DRAFT_KEY);
       document.getElementById('ref-id').textContent = body.id;
       steps[current].classList.remove('active');
       successStep.classList.add('active');
@@ -364,21 +325,6 @@
     });
   }
 
-  var lastCopy = '';
-  document.getElementById('print-copy').addEventListener('click', function () {
-    var w = window.open('', '_blank');
-    if (!w) return;
-    w.document.write('<!doctype html><html><head><meta charset="utf-8"><title>Volunteer Application</title>' +
-      '<link rel="stylesheet" href="' + new URL('assets/css/volunteer.css', location.href).href + '">' +
-      '<style>body{padding:24px;background:#fff;color:#1d1d1f}.review-section header button{display:none}</style></head><body>' +
-      '<h1 style="font-size:24px;margin-bottom:4px">Laymen Ministries — Volunteer Application</h1>' +
-      '<p style="color:#6e6e73;margin-top:0">Reference ' + esc(document.getElementById('ref-id').textContent) + '</p>' +
-      lastCopy + '</body></html>');
-    w.document.close();
-    w.onload = function () { w.print(); };
-  });
-
-  // ---------- Init ----------
   var startAt = restoreDraft();
   var params = new URLSearchParams(location.search);
   var preset = { student: 'Student Missionary', longterm: 'Long-Term Missionary' }[params.get('track')];

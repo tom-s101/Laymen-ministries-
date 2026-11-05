@@ -1,3 +1,2 @@
-# Applications contain personal data. Never serve this folder over the web.
 Require all denied
 Deny from all
