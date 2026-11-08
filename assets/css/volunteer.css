@@ -383,7 +383,4 @@ legend { font-size: 19px; font-weight: 600; margin-bottom: 14px; padding: 0; }
 .prose p { font-family: var(--font-serif); color: var(--text-muted); font-size: 18px; line-height: 1.7; margin: 20px 0 0; }
 .prose blockquote { margin: 28px 0 0; padding-left: 20px; border-left: 4px solid var(--accent); font-family: var(--font-serif); font-size: 20px; line-height: 1.6; }
 .gallery { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-.more summary { list-style: none; cursor: pointer; margin-top: 16px; color: var(--brand); font-weight: 600; font-size: 15px; }
-.more summary::-webkit-details-marker { display: none; }
-.more summary span:last-child, .more[open] summary span:first-child { display: none; }
-.more[open] summary span:last-child { display: inline; }
+.more-toggle { margin-top: 20px; padding: 0; border: 0; background: none; cursor: pointer; font: 600 15px var(--font); color: var(--brand); }
