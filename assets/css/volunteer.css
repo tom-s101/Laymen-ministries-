@@ -378,11 +378,13 @@ legend { font-size: 19px; font-weight: 600; margin-bottom: 14px; padding: 0; }
 .form-alert.show { display: block; }
 
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
-.photo-placeholder { display: grid; place-items: center; aspect-ratio: 4 / 3; border-radius: var(--radius-lg); background: var(--border-soft); color: var(--text-muted); font-size: 14px; }
 .prose { max-width: 760px; }
 .prose p { font-family: var(--font-serif); color: var(--text-muted); font-size: 18px; line-height: 1.7; margin: 20px 0 0; }
 .prose blockquote { margin: 28px 0 0; padding-left: 20px; border-left: 4px solid var(--accent); font-family: var(--font-serif); font-size: 20px; line-height: 1.6; }
-.gallery { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.gallery { display: grid; grid-template-columns: repeat(2, 1fr); grid-auto-flow: dense; gap: 10px; }
+.gallery img { width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); }
+.gallery .tall { grid-row: span 2; aspect-ratio: auto; }
+@media (min-width: 900px) { .gallery { grid-template-columns: repeat(4, 1fr); gap: 16px; } .gallery img { border-radius: var(--radius-lg); } }
 .more-toggle { margin-top: 20px; padding: 0; border: 0; background: none; cursor: pointer; font: 600 15px var(--font); color: var(--brand); }
 .prose blockquote p { color: var(--text); }
 .prose blockquote p:first-child { margin-top: 0; }
