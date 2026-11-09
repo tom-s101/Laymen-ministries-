@@ -159,17 +159,12 @@ h1, h2, h3, h4 { font-family: var(--font); letter-spacing: -.01em; margin: 0; co
 .section-alt .card { border-color: transparent; }
 .card h3 { font-size: 22px; margin-bottom: 8px; }
 .card p { margin: 0; color: var(--text-muted); }
-.card .icon {
-  width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
-  background: var(--accent-soft); color: var(--accent); margin-bottom: 18px;
-}
-.card .icon svg { width: 22px; height: 22px; }
 
-.place-featured { display: flex; gap: 32px; align-items: flex-end; justify-content: space-between; margin-bottom: 20px; border-left: 4px solid var(--accent); }
+.place.place-featured { flex-direction: row; gap: 32px; align-items: flex-end; justify-content: space-between; margin-bottom: 20px; border-left: 4px solid var(--accent); }
 .place-featured h3 { font-size: 30px; }
 .place-featured p { max-width: 640px; font-size: 17px; }
 .place-featured .btn { flex: none; }
-@media (max-width: 760px) { .place-featured { flex-direction: column; align-items: flex-start; } }
+@media (max-width: 760px) { .place.place-featured { flex-direction: column; align-items: flex-start; } }
 .place .flag { font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .08em; font-weight: 600; }
 .place h3 { margin-top: 6px; }
 .place { display: flex; flex-direction: column; }
@@ -391,3 +386,7 @@ legend { font-size: 19px; font-weight: 600; margin-bottom: 14px; padding: 0; }
 .byline { display: flex; align-items: center; gap: 16px; margin-top: 20px; }
 .byline .lead { margin: 0; }
 .avatar { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); }
+.mission-quote { max-width: 760px; margin: 0 auto 56px; text-align: center; }
+.mission-quote blockquote { margin: 0; font-family: var(--font-serif); font-size: clamp(20px, 2.4vw, 26px); line-height: 1.5; color: var(--text); }
+.mission-quote figcaption { margin-top: 16px; font-size: 15px; font-weight: 600; color: var(--brand); }
+.mission-quote cite { display: block; font-style: normal; font-weight: 400; color: var(--text-muted); }
