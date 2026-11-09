@@ -27,6 +27,16 @@
     if (e.key === 'Escape') closeAll();
   });
 
+  document.querySelectorAll('.more-toggle').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var more = document.getElementById(btn.getAttribute('aria-controls'));
+      more.hidden = !more.hidden;
+      btn.textContent = more.hidden ? 'Read more' : 'Show less';
+      btn.setAttribute('aria-expanded', !more.hidden);
+      if (more.hidden) btn.closest('section').scrollIntoView();
+    });
+  });
+
   document.querySelectorAll('[data-year]').forEach(function (el) {
     el.textContent = new Date().getFullYear();
   });
