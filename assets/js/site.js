@@ -37,6 +37,22 @@
     });
   });
 
+  var box = document.getElementById('lightbox');
+  if (box) {
+    document.querySelectorAll('.gallery a').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        var alt = a.querySelector('img').alt;
+        box.querySelector('img').src = a.href;
+        box.querySelector('img').alt = alt;
+        box.querySelector('p').textContent = alt;
+        box.showModal();
+      });
+    });
+    box.querySelector('.lightbox-close').addEventListener('click', function () { box.close(); });
+    box.addEventListener('click', function (e) { if (e.target === box) box.close(); });
+  }
+
   document.querySelectorAll('[data-year]').forEach(function (el) {
     el.textContent = new Date().getFullYear();
   });
