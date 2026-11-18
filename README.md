@@ -13,6 +13,7 @@ A new volunteer page for lmn.org, plus an online application that replaces the p
 | `api/lib.php` | Shared code for saving, emailing and the printable copy |
 | `api/config.sample.php` | Settings template (copy to `api/config.php`) |
 | `admin/` | Admin page to review applications, set a status, add notes and print or save as PDF |
+| `Library/site-header.lbi` | Dreamweaver Library item for the top menu, shared by both pages |
 | `storage/applications/` | Where submitted applications are saved (one file per application) |
 
 **Requirements:** PHP 8.0 or newer (the store already runs PHP), with PHP's `mail()` function enabled. No database and nothing to install.
@@ -23,7 +24,7 @@ A new volunteer page for lmn.org, plus an online application that replaces the p
 
 1. **Back up the live site** before uploading anything.
 2. **Check for folder name clashes.** If the site already has folders named `assets`, `api`, `admin` or `storage`, rename this project's folders and update the paths before uploading so nothing gets overwritten.
-3. **Upload** everything to the site root, next to `missions.html` (for example with Dreamweaver's Put). If you'd like to review it first, upload to a test folder such as `/volunteer-preview/`. It works from a subfolder too.
+3. **Upload** everything to the site root, next to `missions.html`. The steps for Dreamweaver are below. If you'd like to review it first, upload to a test folder such as `/volunteer-preview/`. It works from a subfolder too.
 4. **Create the settings file.** Copy `api/config.sample.php` to `api/config.php` and fill in:
    - `admin_emails`: who receives new applications, e.g. `['office@lmn.org', 'someone@lmn.org']`
    - `mail_from`: an address on the lmn.org domain, e.g. `Laymen Ministries <no-reply@lmn.org>`
@@ -42,6 +43,20 @@ The password is stored scrambled, not as plain text. Either:
 
 Paste the result between the quotes for `admin_password_hash` in `api/config.php`.
 
+## Adding it in Dreamweaver
+
+No conversion is needed: Dreamweaver opens these HTML, CSS, JavaScript and PHP files directly.
+
+1. **Open the existing lmn.org site** in Dreamweaver (Site → Manage Sites), the same site definition used to publish lmn.org.
+2. **Copy the files into the site's local root folder**, the folder that contains `missions.html`: `volunteer.html`, `volunteer-apply.html`, and the `assets`, `api`, `admin`, `storage` and `Library` folders. If the site already has a `Library` folder, just add `site-header.lbi` to it.
+3. **Create `api/config.php`**: open `api/config.sample.php`, choose File → Save As, name it `config.php`, then fill in the settings (see step 4 above).
+4. **Upload** with the Files panel: select the new files and folders and click **Put** (the up arrow). Make sure these hidden files get uploaded too: `storage/.htaccess`, `admin/.htaccess` and `storage/applications/.gitkeep`. On a Mac, Finder hides files starting with a dot, so check they're in the folders before copying.
+5. **Don't download submitted applications** to your computer with Get. Applications are created on the server; leave `storage/applications` there. Dreamweaver's cloaking (right-click the folder → Cloaking → Cloak) keeps Get and Put from touching it after the first upload.
+
+### Editing the menu
+
+The top menu on both pages is a **Dreamweaver Library item** (`Library/site-header.lbi`). To change it, open it from the **Assets panel → Library**, edit and save. Dreamweaver offers to update both pages automatically; click **Update**, then Put both pages. Don't edit the menu directly inside `volunteer.html` or `volunteer-apply.html`; Dreamweaver locks that area and will replace it with the Library item.
+
 ## Testing after upload
 
 1. Fill out and submit a test application on `volunteer-apply.html`.
@@ -56,8 +71,8 @@ Paste the result between the quotes for `admin_password_hash` in `api/config.php
 
 ## Code to review or edit
 
-- **Menu:** the top menu on `volunteer.html` and `volunteer-apply.html` copies the lmn.org menu (around lines 25–65 in each file). It's a separate copy, so **if the main menu changes later, update it in both files too.**
-  - **Days of Noah** links to the home page (line 59 in both files) because the real page address wasn't known. Replace `https://www.lmn.org/` with the correct link.
+- **Menu:** the top menu copies the lmn.org menu and lives in `Library/site-header.lbi` (see "Editing the menu" above). It's separate from the main site's menu, so **if the main menu changes later, update the Library item too.**
+  - **Days of Noah** links to the home page because the real page address wasn't known. Replace `https://www.lmn.org/` on the Days of Noah line with the correct link.
   - **About** only lists About Us and LM Productions History. Add any other pages from the real dropdown.
   - All menu links are full `https://www.lmn.org/...` addresses so they work from a preview copy. They can stay that way.
 - **Colors and fonts** are set at the top of `assets/css/volunteer.css`: rust `#893600`, gold `#ffc55f` and the text colors, all taken from lmn.org. Fonts load from Google Fonts.

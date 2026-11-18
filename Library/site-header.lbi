@@ -1,0 +1,44 @@
+<header class="site-header">
+    <div class="container header-bar">
+      <a class="brand" href="https://www.lmn.org/" aria-label="Laymen Ministries home">
+        <img class="brand-logo" src="assets/img/lmn-logo.png" alt="Laymen Ministries" width="686" height="52">
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
+        <svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true"><path d="M1 2h20M1 8h20M1 14h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <div class="container">
+        <ul class="menu">
+          <li><a href="https://www.lmn.org/index.html">Home</a></li>
+          <li class="has-sub">
+            <button type="button" aria-expanded="false">About <span class="caret" aria-hidden="true"></span></button>
+            <ul class="submenu">
+              <li><a href="https://www.lmn.org/aboutus.html">About Us</a></li>
+              <li><a href="https://www.lmn.org/lmproductionshistory.html">LM Productions History</a></li>
+            </ul>
+          </li>
+          <li class="has-sub current">
+            <button type="button" aria-expanded="false">Mission Projects <span class="caret" aria-hidden="true"></span></button>
+            <ul class="submenu">
+              <li><a href="https://www.lmn.org/missions.html">Missions &amp; Applications</a></li>
+              <li><a href="volunteer.html" aria-current="page">Volunteer &amp; Apply Online</a></li>
+              <li class="sep" role="separator"></li>
+              <li><a href="https://www.lmn.org/missions_philippines.html">The Philippines</a></li>
+              <li><a href="https://www.lmn.org/missions_india_south.html">India</a></li>
+              <li><a href="https://www.lmn.org/missions_indiaorphans.html">India Orphans</a></li>
+              <li><a href="https://www.lmn.org/missions_nepal.html">Nepal</a></li>
+              <li><a href="https://www.lmn.org/missions_romania.html">Romania</a></li>
+              <li><a href="https://www.lmn.org/missions_lithuania.html">Lithuania</a></li>
+            </ul>
+          </li>
+          <li><a href="https://www.lmn.org/videoroom.html">Videos</a></li>
+          <li><a href="https://www.lmn.org/">Days of Noah</a></li>
+          <li><a href="https://www.lmn.org/articles.html">Featured Articles</a></li>
+          <li><a href="https://www.lmn.org/catalog/index.php">Store</a></li>
+          <li class="donate"><a href="https://www.lmn.org/catalog/index.php?cPath=744">Donate</a></li>
+          <li><a href="https://www.lmn.org/contactus.html">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
