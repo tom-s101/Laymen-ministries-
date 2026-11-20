@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', '0');
 require __DIR__ . '/lib.php';
 
 header('Content-Type: application/json; charset=utf-8');
@@ -26,7 +27,7 @@ $name = lmn_applicant_name($app);
 $intro = '<p style="font-family:Arial,sans-serif;font-size:14px;">New <strong>' . h($data['track']) . '</strong> application from <strong>'
     . h($name) . '</strong> (' . h($data['email']) . ').<br>Start: ' . h($data['start_date']) . ' &middot; ' . h($data['duration'])
     . '<br><a href="' . h($cfg['admin_url'] . '?id=' . $app['id']) . '">Open in the review dashboard</a></p><hr>';
-foreach ($cfg['admin_emails'] as $to) {
+foreach ((array) ($cfg['admin_emails'] ?? []) as $to) {
     lmn_mail($to, "New volunteer application: $name ({$app['id']})", $intro . lmn_render_copy($app, false), ['name' => "{$app['id']}.html", 'content' => lmn_render_copy($app)], $data['email']);
 }
 

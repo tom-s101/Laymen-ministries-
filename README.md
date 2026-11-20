@@ -70,16 +70,17 @@ The application page shows a red message above the form, e.g. "server error 500"
 
 1. **Visit `https://www.lmn.org/api/submit.php` in a browser.** You should see `{"ok":false,"error":"Invalid application"}`. That means PHP and the files are working.
    - **Page not found (404):** the `api` folder isn't on the server, or isn't next to `volunteer-apply.html`.
-   - **Blank page or "500 Internal Server Error":** a PHP error. Check steps 3–5.
+   - **Blank page or "500 Internal Server Error":** a PHP error. Check steps 4–6.
    - **You see PHP code as text:** PHP isn't running for that folder. Ask the host to enable it.
 2. **Check the error in the browser.** Open the application, press F12 (or right-click → Inspect), go to the **Network** tab, then click Submit. Click the `submit.php` row to see its status code and response.
-3. **`api/config.php` exists** on the server (not just `config.sample.php`), and its quotes and commas are intact. A missing or broken config file causes "server error 500".
-4. **PHP version is 8.0 or newer.** Check in the hosting control panel (often called "PHP Version" or "MultiPHP Manager").
-5. **The applications folder is writable.** The folder named in `storage_dir` must exist and have permissions 755 or 775. The host's PHP error log (in the control panel, or an `error_log` file in the `api` folder) will say "Permission denied" if not.
-6. **All files were uploaded:** `api/submit.php`, `api/lib.php`, `api/config.php` and `assets/js/apply.js`. In Dreamweaver, Put each one, or Put the whole folders.
-7. **Folder names weren't changed.** The form sends to `api/submit.php` relative to `volunteer-apply.html`. If the `api` folder was renamed or moved, update that path in `assets/js/apply.js` (search for `api/submit.php`).
-8. **Security filters:** "server error 403" or "406" usually means the host's firewall (often ModSecurity) is blocking the submission. Ask the host to allow POST requests to `/api/submit.php`.
-9. **Clear the cache** after uploading fixes: hard-refresh the page (Ctrl+Shift+R, or Cmd+Shift+R on a Mac). If the site uses Cloudflare or another cache, purge it too.
+3. **Check `/admin/` first.** Applications are saved before any email is sent, so if they appear there, the form is working and the problem is only email (see "Email" below).
+4. **`api/config.php` exists** on the server (not just `config.sample.php`), and its quotes and commas are intact. A missing or broken config file causes "server error 500".
+5. **PHP version is 8.0 or newer.** Check in the hosting control panel (often called "PHP Version" or "MultiPHP Manager").
+6. **The applications folder is writable.** The folder named in `storage_dir` must exist and have permissions 755 or 775. The host's PHP error log (in the control panel, or an `error_log` file in the `api` folder) will say "Permission denied" if not.
+7. **All files were uploaded:** `api/submit.php`, `api/lib.php`, `api/config.php` and `assets/js/apply.js`. In Dreamweaver, Put each one, or Put the whole folders.
+8. **Folder names weren't changed.** The form sends to `api/submit.php` relative to `volunteer-apply.html`. If the `api` folder was renamed or moved, update that path in `assets/js/apply.js` (search for `api/submit.php`).
+9. **Security filters:** "server error 403" or "406" usually means the host's firewall (often ModSecurity) is blocking the submission. Ask the host to allow POST requests to `/api/submit.php`.
+10. **Clear the cache** after uploading fixes: hard-refresh the page (Ctrl+Shift+R, or Cmd+Shift+R on a Mac). If the site uses Cloudflare or another cache, purge it too.
 
 If the applicant sees the "Application received" screen but no email arrives, the application was still saved (check `/admin/`). That's an email delivery issue; see "Email" below.
 
