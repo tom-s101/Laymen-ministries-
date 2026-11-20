@@ -308,7 +308,9 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ data: collectAll(), sections: collectSections() })
-    }).then(function (res) { return res.json(); }).then(function (body) {
+    }).then(function (res) {
+      return res.json().catch(function () { throw new Error('server error ' + res.status); });
+    }).then(function (body) {
       if (!body.ok) throw new Error(body.error);
       localStorage.removeItem(DRAFT_KEY);
       document.getElementById('ref-id').textContent = body.id;
@@ -320,6 +322,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }).catch(function (err) {
       showAlert('We couldn\'t submit your application (' + err.message + '). Your answers are still saved on this device. Please try again, or email office@lmn.org.');
+      alertBox.scrollIntoView({ block: 'center', behavior: 'smooth' });
       nextBtn.disabled = false;
       nextBtn.textContent = 'Submit application';
     });
